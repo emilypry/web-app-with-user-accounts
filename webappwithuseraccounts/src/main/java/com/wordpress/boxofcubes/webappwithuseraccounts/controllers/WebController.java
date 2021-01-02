@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebController{
-    @GetMapping("")
-    public String index(){
-        return "index";
+    @GetMapping("user/login")
+    public String showLogin(){
+        return "login";
     }
 }
