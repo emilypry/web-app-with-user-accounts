@@ -1,6 +1,13 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Dataset {
+    @Id
+    @GeneratedValue
     private int id;
     private double[] x;
     private double[] y;
