@@ -8,26 +8,24 @@
 
 </head>
 <body>
-    <center>
-    <h2>Online Data Storage and Display</h2>
-    <p> AAAGGGHHHHH</p>
+    <center><h2>Online Data Storage and Display</h2></center>
 
-    <div>
-        <b>Login to your account</b>
+    <div class="form-box">
+        <span>Log In</span>
+        <span><a th:href="@{/user/signup}">Sign Up</a></span>
         <form method="post">
-            <div class="form-group">
+            <div>
                 <input type="text" name="username" placeholder="Username" class="styled-input">
             </div>
-            <div class="form-group">
+            <div>
                 <input type="password" name="password" placeholder="Password" class="styled-input"/>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Login" />
+            <div>
+                <input type="submit" value="Log In" />
             </div>
         </form>
     </div>
 
 
-    </center>
 </body>
 </html>
