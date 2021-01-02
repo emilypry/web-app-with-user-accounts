@@ -6,11 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import javax.validation.constraints.Size;
+
 @Entity
 public class User {
     @Id
     @GeneratedValue
     private int id;
+
+    @Size(min=7, max=20)
     private String username;
     private String password; //change later
     private ArrayList<Dataset> data;
