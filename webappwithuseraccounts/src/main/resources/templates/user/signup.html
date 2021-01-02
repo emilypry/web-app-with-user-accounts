@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org/">
+<head>
+    <title>Data Storage and Display</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <center>
+        <h2>Online Data Storage and Display</h2>
+
+        <div class="form-box">
+            <span>Sign Up</span>
+            <span><a th:href="@{/user/login}">Log In</a></span>
+            <form method="post">
+                <div>
+                    <input type="text" name="username" placeholder="Username" class="styled-input">
+                </div>
+                <div>
+                    Please enter a password with at least 6 characters,
+                    including at least one number and one symbol. 
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="Password" class="styled-input"/>
+                </div>
+                <div>
+                    <input type="submit" value="Sign Up" />
+                </div>
+            </form>
+        </div>
+
+        <div  id="proceed">
+        <a th:href="@{/data/add}">Proceed without an account</a>
+        </div>
+    </center>   
+
+</body>
+</html>

@@ -14,5 +14,8 @@ public class UserController{
         return "user/login";
     }
 
-    
+    @GetMapping("signup")
+    public String showSignup(){
+        return "user/signup";
+    }
 }
