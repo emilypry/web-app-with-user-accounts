@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController{
     @GetMapping("user/login")
     public String showLogin(){
-        return "login";
+        return "user/login";
     }
 }
