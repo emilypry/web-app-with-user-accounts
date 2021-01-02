@@ -1,7 +1,7 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.models;
 
 public class Data {
-    public int id;
+    private int id;
     private double[] x;
     private double[] y;
 

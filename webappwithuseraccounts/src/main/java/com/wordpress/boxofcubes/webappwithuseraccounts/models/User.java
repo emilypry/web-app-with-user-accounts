@@ -9,7 +9,9 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-    public int id;
+    @Id
+    @GeneratedValue
+    private int id;
     private String username;
     private String password; //change later
     private ArrayList<Data> data;
