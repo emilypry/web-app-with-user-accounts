@@ -1,12 +1,12 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.models;
 
-public class Data {
+public class Dataset {
     private int id;
     private double[] x;
     private double[] y;
 
-    public Data(){}
-    public Data(int id, double[] x, double[] y){
+    public Dataset(){}
+    public Dataset(int id, double[] x, double[] y){
         this.id = id;
         this.x = x;
         this.y = y;

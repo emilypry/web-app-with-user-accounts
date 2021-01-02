@@ -14,10 +14,10 @@ public class User {
     private int id;
     private String username;
     private String password; //change later
-    private ArrayList<Data> data;
+    private ArrayList<Dataset> data;
 
     public User(){}
-    public User(int id, String username, String password, ArrayList<Data> data){
+    public User(int id, String username, String password, ArrayList<Dataset> data){
         this.id = id;
         this.username = username;
         this.password = password;
@@ -42,10 +42,10 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
-    public ArrayList<Data> getData(){
+    public ArrayList<Dataset> getData(){
         return data;
     }
-    public void setData(ArrayList<Data> data){
+    public void setData(ArrayList<Dataset> data){
         this.data = data;
     }
 }
