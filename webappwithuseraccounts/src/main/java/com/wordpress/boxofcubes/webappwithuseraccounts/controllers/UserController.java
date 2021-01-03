@@ -1,15 +1,19 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.controllers;
 
+import javax.validation.Valid;
+
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequestMapping("user")
@@ -28,10 +32,11 @@ public class UserController{
         return "user/signup";
     }
     @PostMapping("signup")
-    @ResponseBody
-    public String processSignup(@ModelAttribute User user){
+    public String processSignup(@ModelAttribute @Valid User user, Errors errors){
+        if(errors.hasErrors()){
+            return "user/signup";
+        }
         userRepository.save(user);
-        return "ok, added "+user.getUsername();
+        return "redirect:/data";
     }
-
 }
