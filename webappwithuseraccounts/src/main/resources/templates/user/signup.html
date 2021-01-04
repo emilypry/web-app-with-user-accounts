@@ -24,8 +24,9 @@
                 </div>
                 <div>
                     <input type="password" name="retyped" placeholder="Retype Password" class="styled-input"/>
-                    <div th:if="*{password} != 'hi'"><p>POOOOPP</p></div>
-
+                    
+                    <span th:if="${passError}" th:text="${passError}"></span>
+                    
                     
                 </div>
                 <div>

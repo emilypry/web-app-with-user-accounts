@@ -34,7 +34,11 @@ public class UserController{
         return "user/signup";
     }
     @PostMapping("signup")
-    public String processSignup(@ModelAttribute @Valid User user, Errors errors){
+    public String processSignup(@ModelAttribute @Valid User user, Errors errors, 
+                                @ModelAttribute String retyped, Model model){
+        if(user.getPassword().equals(retyped) == false){
+            model.addAttribute("passError", "Passwords must be identical");
+        }
         if(errors.hasErrors()){
             return "user/signup";
         }

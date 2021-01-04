@@ -57,7 +57,4 @@ public class User {
         this.data = data;
     }
 
-    public static boolean checkIfIdentical(String password1, String password2){
-        return password1.equals(password2);
-    }
 }
