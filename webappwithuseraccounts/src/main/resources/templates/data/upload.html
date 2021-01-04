@@ -10,32 +10,38 @@
     <div th:replace="fragments :: menu"></div>
     <p>Please upload or enter the X and Y values of your dataset.</p>
 
-    <div>
-        <h2>Upload</h2>
+    <form method="post">
         <div>
-            <label for="xUpload">X: </label>
-            <input type=file name="xFile" id="xUpload"/>
+            <h2>Upload</h2>
+            <div>
+                <label for="xUpload">X: </label>
+                <input type=file name="xFile" id="xUpload"/>
+            </div>
+            <div>
+                <label for="yUpload">Y: </label>
+                <input type=file name="yFile" id="yUpload"/>
+            </div>
         </div>
-        <div>
-            <label for="yUpload">Y: </label>
-            <input type=file name="yFile" id="yUpload"/>
-        </div>
-    </div>
 
-    <h2>or</h2>
+        <h2>or</h2>
 
-    <div>
-        <h2>Enter</h2>
-        <p>Values must be separated by new line or by comma</p>
         <div>
-            <label for="xEnter">X: </label>
-            <input type="textArea" name="xData" id="xEnter" />
+            <h2>Enter</h2>
+            <p>Values must be separated by new line or by comma</p>
+            <div>
+                <label for="xEnter">X: </label>
+                <input type="textArea" name="xData" id="xEnter" />
+            </div>
+            <div>
+                <label for="yEnter">Y: </label>
+                <input type="textArea" name="yData" id="yEnter" />
+            </div>
         </div>
+
         <div>
-            <label for="yEnter">Y: </label>
-            <input type="textArea" name="yData" id="yEnter" />
+            <input type="submit" />
         </div>
-    </div>
+    </form>
 
 
 </body>
