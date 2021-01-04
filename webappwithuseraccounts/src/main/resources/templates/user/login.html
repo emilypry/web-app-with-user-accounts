@@ -6,29 +6,46 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <center>
-        <h2>Online Data Storage and Display</h2>
+    <h2>Online Data Storage and Display</h2>
 
-        <div class="form-box">
-            <span>Log In</span>
-            <span><a th:href="@{/user/signup}">Sign Up</a></span>
-            <form method="post">
-                <div>
+    <div class="form-box">
+        <div class="form-item">
+            <div class="label">Log In</div>
+            <div class="label"><a th:href="@{/user/signup}">Sign Up</a></div>
+        </div>
+
+        <form method="post">
+            <div class="form-item">
+                <div class="text-box">
                     <input type="text" name="username" placeholder="Username" class="styled-input">
                 </div>
-                <div>
-                    <input type="password" name="password" placeholder="Password" class="styled-input"/>
+            </div>
+            <div class="form-item">
+                <!--<div class="error" th:errors="*{username}"></div>-->
+            </div>
+
+            <div class="form-item">
+                <div class="text-box">
+                    <input type="password" name="password" placeholder="Password" class="styled-input">
                 </div>
-                <div>
-                    <input type="submit" value="Log In" />
-                </div>
-            </form>
+            </div>
+            <div class="form-item">
+                <!--<div class="error" th:errors="*{password}"></div>-->
+            </div>
+
+            <div class="form-item">
+                <input type="submit" value="Log In" />
+            </div>
+
+        </form>
+
+        <div class="form-item">
+            <div id="proceed">
+                <a th:href="@{/data/add}">Proceed without an account</a>
+            </div>
         </div>
 
-        <div  id="proceed">
-        <a th:href="@{/data/add}">Proceed without an account</a>
-        </div>
-    </center>   
-
+    </div>
+  
 </body>
 </html>

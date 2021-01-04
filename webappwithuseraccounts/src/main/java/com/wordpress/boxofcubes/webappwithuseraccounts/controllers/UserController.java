@@ -37,13 +37,6 @@ public class UserController{
     @PostMapping("signup")
     public String processSignup(@ModelAttribute @Valid User user, Errors errors, 
                                 @RequestParam String retyped, Model model){
-        /*if(user.getPassword().equals(retyped) == false){
-            model.addAttribute("passError", "Passwords must be identical");
-        }
-
-        if(errors.hasErrors()){
-            return "user/signup";
-        }*/
 
         boolean identical = user.getPassword().equals(retyped);
         System.out.println(user.getPassword());
@@ -56,11 +49,7 @@ public class UserController{
             }
             return "user/signup";
         }
-
-
-
-
-
+        
         userRepository.save(user);
         return "redirect:/data";
     }
