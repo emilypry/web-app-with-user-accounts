@@ -6,38 +6,101 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <center>
-        <h2>Online Data Storage and Display</h2>
-    
+    <h2>Online Data Storage and Display</h2>
 
-        <div class="form-box" th:object="${user}">
-            <span>Sign Up</span>
-            <span><a th:href="@{/user/login}">Log In</a></span>
-            <form method="post">
-                <div>
+    <div class="form-box">
+        <div class="form-item">
+            <div class="label">Sign Up</div>
+            <div class="label"><a th:href="@{/user/login}">Log In</a></div>
+        </div>
+
+        <form method="post" th:object="${user}">
+            <div class="form-item">
+                <div class="text-box">
                     <input th:field="*{username}" placeholder="Username" class="styled-input">
-                    <span id="aagh" th:errors="*{username}"></span>
                 </div>
-                <div>
+            </div>
+            <div class="form-item">
+                <div class="error" th:errors="*{username}"></div>
+            </div>
+
+            <div class="form-item">
+                <div class="text-box">
+                    <input type="password" th:field="*{password}" placeholder="Password" class="styled-input">
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="error" th:errors="*{password}"></div>
+            </div>
+
+            <div class="form-item">
+                <div class="text-box">
+                    <input type="password" name="retyped" placeholder="Retype Password" class="styled-input">
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="error" th:if="${passError}" th:text="${passError}"></div>
+            </div>
+
+            <div class="form-item">
+                <input type="submit" value="Sign Up" />
+            </div>
+
+        </form>
+
+        <div class="form-item">
+            <div id="proceed">
+                <a th:href="@{/data/add}">Proceed without an account</a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <!--
+    <div class="form-box" th:object="${user}">
+        <div class="form-item">
+            <div class="label">Sign Up</div>
+            <div class="label"><a th:href="@{/user/login}">Log In</a></div>
+        </div>
+
+        <div class="form-item">
+            <form method="post">
+                
+                <div class="text-box">
+                    <input th:field="*{username}" placeholder="Username" class="styled-input">
+                </div>
+                <div class="form-item">
+                    <div class="error" th:errors="*{username}"></div>
+                </div>
+                <div class="text-box">
                     <input type="password" th:field="*{password}" placeholder="Password" class="styled-input"/>
-                    <span id="aagh" th:errors="*{password}"></span>
+                    <div class="error" th:errors="*{password}"></div>
                 </div>
-                <div>
-                    <input type="password" name="retyped" placeholder="Retype Password" class="styled-input"/>
-                    
-                    <span th:if="${passError}" th:text="${passError}"></span>
-                    
-                    
+                <div class="text-box">
+                    <input type="password" name="retyped" placeholder="Retype Password" class="styled-input"/> 
+                    <div class="error" th:if="${passError}" th:text="${passError}"></div>
                 </div>
                 <div>
                     <input type="submit" value="Sign Up" />
                 </div>
+            
             </form>
         </div>
-
-        <div id="proceed">
-            <a th:href="@{/data/add}">Proceed without an account</a>
+    
+        <div class="form-item">
+            <div id="proceed">
+                <a th:href="@{/data/add}">Proceed without an account</a>
+            </div>
         </div>
-    </center>
+
+    </div>
+    -->
+
+    
 </body>
 </html>
