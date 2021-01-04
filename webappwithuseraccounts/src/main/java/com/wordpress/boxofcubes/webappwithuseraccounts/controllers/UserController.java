@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -35,13 +36,31 @@ public class UserController{
     }
     @PostMapping("signup")
     public String processSignup(@ModelAttribute @Valid User user, Errors errors, 
-                                @ModelAttribute String retyped, Model model){
-        if(user.getPassword().equals(retyped) == false){
+                                @RequestParam String retyped, Model model){
+        /*if(user.getPassword().equals(retyped) == false){
             model.addAttribute("passError", "Passwords must be identical");
         }
+
         if(errors.hasErrors()){
             return "user/signup";
+        }*/
+
+        boolean identical = user.getPassword().equals(retyped);
+        System.out.println(user.getPassword());
+        System.out.println(retyped);
+        System.out.println(identical);
+
+        if(identical==false || errors.hasErrors()){
+            if(identical == false){
+                model.addAttribute("passError", "Passwords must be identical");
+            }
+            return "user/signup";
         }
+
+
+
+
+
         userRepository.save(user);
         return "redirect:/data";
     }
