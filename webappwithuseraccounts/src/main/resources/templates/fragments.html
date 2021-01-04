@@ -6,10 +6,10 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    
-    <div th:fragment="menu">
-        <h2><a th:href="@{/user/login}" th:text="LOG">Log Out</a></h2>
-        <h2><a th:href="@{/user/login}" th:text="ACT">My Account</a></h2>
+
+    <div th:fragment="menu" class="menu">
+        <a th:href="@{/user/account}">My Account</a>
+        <a th:href="@{/user/login}">Log Out</a>
     </div>
 
 </body>
