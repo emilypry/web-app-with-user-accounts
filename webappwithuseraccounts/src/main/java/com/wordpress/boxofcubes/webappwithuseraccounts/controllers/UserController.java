@@ -28,16 +28,19 @@ public class UserController{
         return "user/login";
     }
     @PostMapping("login")
-    @ResponseBody
-    public String processLogin(@RequestParam String username, String password){
+    public String processLogin(@RequestParam String username, String password, Model model){
         User user = userRepository.findByUsername(username);
 
-        if(user == null){
-            return "no user with that name";
+        if(user == null || user.getPassword().equals(password) == false){
+            if(user == null){
+                model.addAttribute("userError", "No account with that username");
+            }else{
+                model.addAttribute("passError", "Incorrect password");
+            }
+            return "user/login";
         }
 
-        return String.valueOf(user.getId()+user.getUsername()+user.getPassword());
-        //return "redirect:/data";
+        return "redirect:/data";
     }
     
 
