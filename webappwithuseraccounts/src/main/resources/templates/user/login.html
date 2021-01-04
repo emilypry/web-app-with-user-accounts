@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="form-item">
-                <!--<div class="error" th:errors="*{username}"></div>-->
+                <div class="error" th:if="${userError}" th:text="${userError}"></div>
             </div>
 
             <div class="form-item">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-item">
-                <!--<div class="error" th:errors="*{password}"></div>-->
+                <div class="error" th:if="${passError}" th:text="${passError}"></div>
             </div>
 
             <div class="form-item">
