@@ -40,7 +40,7 @@ public class UserController{
             return "user/login";
         }
 
-        return "redirect:/data";
+        return "redirect:/data/upload";
     }
     
 
@@ -64,6 +64,6 @@ public class UserController{
 
         // CHECK THAT NO USER WITH THAT USERNAME ALREADY EXISTS!!!!
         userRepository.save(user);
-        return "redirect:/data";
+        return "redirect:/data/upload";
     }
 }
