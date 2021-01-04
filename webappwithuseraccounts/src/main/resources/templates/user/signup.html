@@ -8,19 +8,25 @@
 <body>
     <center>
         <h2>Online Data Storage and Display</h2>
+    
 
-        <div class="form-box">
+        <div class="form-box" th:object="${user}">
             <span>Sign Up</span>
             <span><a th:href="@{/user/login}">Log In</a></span>
             <form method="post">
                 <div>
-                    <input type="text" name="username" placeholder="Username" class="styled-input">
+                    <input th:field="*{username}" placeholder="Username" class="styled-input">
+                    <span id="aagh" th:errors="*{username}"></span>
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder="Password" class="styled-input"/>
+                    <input type="password" th:field="*{password}" placeholder="Password" class="styled-input"/>
+                    <span id="aagh" th:errors="*{password}"></span>
                 </div>
                 <div>
                     <input type="password" name="retyped" placeholder="Retype Password" class="styled-input"/>
+                    <div th:if="*{password} != 'hi'"><p>POOOOPP</p></div>
+
+                    
                 </div>
                 <div>
                     <input type="submit" value="Sign Up" />
@@ -31,7 +37,6 @@
         <div id="proceed">
             <a th:href="@{/data/add}">Proceed without an account</a>
         </div>
-    </center>   
-
+    </center>
 </body>
 </html>

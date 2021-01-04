@@ -43,3 +43,9 @@ input[type=submit] {
 #proceed a{
     color:darkred;
 }
+
+#aagh {
+    font-size: 10px;
+    color:chocolate;
+    margin-left:10px;
+}
