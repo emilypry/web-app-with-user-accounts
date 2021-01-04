@@ -38,8 +38,8 @@ h2 {
     color:darkred;
     font-size: 14px;
     padding-top: 3px;
+    padding-left: 50px;
     width: 250px;
-    justify-self: center;
 }
 #proceed {
     margin-top: 30px;
