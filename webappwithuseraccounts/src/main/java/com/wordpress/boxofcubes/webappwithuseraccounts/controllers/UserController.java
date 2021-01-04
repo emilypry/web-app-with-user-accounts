@@ -28,10 +28,16 @@ public class UserController{
         return "user/login";
     }
     @PostMapping("login")
+    @ResponseBody
     public String processLogin(@RequestParam String username, String password){
+        User user = userRepository.findByUsername(username);
 
+        if(user == null){
+            return "no user with that name";
+        }
 
-        return "redirect:/data";
+        return String.valueOf(user.getId()+user.getUsername()+user.getPassword());
+        //return "redirect:/data";
     }
     
 
@@ -53,6 +59,7 @@ public class UserController{
             return "user/signup";
         }
 
+        // CHECK THAT NO USER WITH THAT USERNAME ALREADY EXISTS!!!!
         userRepository.save(user);
         return "redirect:/data";
     }
