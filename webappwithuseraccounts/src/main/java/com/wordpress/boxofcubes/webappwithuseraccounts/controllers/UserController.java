@@ -27,6 +27,12 @@ public class UserController{
     public String showLogin(){
         return "user/login";
     }
+    @PostMapping("login")
+    public String processLogin(@RequestParam String username, String password){
+
+
+        return "redirect:/data";
+    }
     
 
     @GetMapping("signup")
@@ -39,9 +45,6 @@ public class UserController{
                                 @RequestParam String retyped, Model model){
 
         boolean identical = user.getPassword().equals(retyped);
-        System.out.println(user.getPassword());
-        System.out.println(retyped);
-        System.out.println(identical);
 
         if(identical==false || errors.hasErrors()){
             if(identical == false){
@@ -49,7 +52,7 @@ public class UserController{
             }
             return "user/signup";
         }
-        
+
         userRepository.save(user);
         return "redirect:/data";
     }
