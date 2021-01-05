@@ -77,6 +77,41 @@ input[type=submit] {
 
 
 
+.whole-container {
+    background-color: aqua;
+    display: flex;
+    width: 1200px;
+    height: 600px;
+    margin: auto;
+    justify-content: center;
+}
+.column1 {
+    background-color: bisque;
+    width: 35%;
+    height: 90%;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+.column2 {
+    background-color: blue;
+    width: 10%;
+    height: 90%;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.column3 {
+    background-color: brown;
+    width: 45%;
+    height: 90%;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+}
+
 
 
 
