@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("data")
@@ -21,7 +22,7 @@ public class DataController {
 
     @PostMapping("upload")
     @ResponseBody
-    public String processUpload(@RequestParam String xEntry, String yEntry){
-        return xEntry+"\n"+yEntry;
+    public String processUpload(@RequestParam("xFile") MultipartFile xFile){
+        return xFile.getOriginalFilename();
     }
 }
