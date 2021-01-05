@@ -18,4 +18,10 @@ public class DataController {
     public String showUpload(){
         return "data/upload";
     }
+
+    @PostMapping("upload")
+    @ResponseBody
+    public String processUpload(@RequestParam String xEntry, String yEntry){
+        return xEntry+"\n"+yEntry;
+    }
 }
