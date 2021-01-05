@@ -10,51 +10,88 @@
     <div th:replace="fragments :: menu"></div>
     <!--<p>Please upload or enter the X and Y values of your dataset.</p>-->
 
-    <div class="whole-container">
-        <div class="column1">
-            <div class="label">Upload</div>
+    <form method="post" id="thisForm">
+        <div class="whole-container">
+            <div class="column1">
+                <div class="label">Upload</div>
 
-            <div class="upload-container">
-                <div class="upload-line">
-                    <div class="upload-label">
-                        <label for="xUpload">X: </label>
-                    </div>
-                    <div class="upload-input">
-                        <input type=file name="xFile" id="xUpload"/>
-                    </div>
-                </div>
-                <!--<div class="data-error">Error!!!!!!!</div>-->
-
-                <div class="upload-line">
+                <div class="upload-container">
                     <div class="upload-line">
                         <div class="upload-label">
-                            <label for="yUpload">Y: </label>
+                            <label for="xUpload">X: </label>
                         </div>
                         <div class="upload-input">
-                            <input type=file name="yFile" id="yUpload"/>
+                            <input type=file name="xFile" id="xUpload"/>
                         </div>
                     </div>
-                </div>
-                <!--<div class="data-error">Error!!!!!!!</div>-->
+                    <!--<div class="data-error">Error!!!!!!!</div>-->
+
+                    <div class="upload-line">
+                        <div class="upload-line">
+                            <div class="upload-label">
+                                <label for="yUpload">Y: </label>
+                            </div>
+                            <div class="upload-input">
+                                <input type=file name="yFile" id="yUpload"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="data-error">Error!!!!!!!</div>-->
                 
+                </div>
+            </div>
+
+            <div class="column2">
+                <div class="label">or</div>
+
+                <div class="line"></div>
+
+                <div class="submit-button">
+                    <input type="submit" value="Submit Data"/>
+                </div>
+            </div>
+
+            <div class="column3">
+                <div class="label">Enter</div>
+
+                <div class="instructions">
+                    Separate values by new line or by comma
+                </div>
+
+                <div class="upload-container">
+                    <div class="entry-box">
+                        <div class="entry-label">
+                            <label for="xEnter">X: </label>
+                        </div>
+                        
+                        <div class="entry">
+                            <textarea form="thisForm" name="xData" id="xEnter" cols=68 rows=13></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="data-error">Error!!!!</div>-->
+
+                    <div class="entry-box">
+                        <div class="entry-label">
+                            <label for="yEnter">Y: </label>
+                        </div>
+                        
+                        <div class="entry">
+                            <textarea form="thisForm" name="yData" id="yEnter" cols=68 rows=13></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="data-error">Error!!!!</div>-->
+                </div>
+                
+
 
 
             </div>
 
-        </div>
 
-        <div class="column2">
-            <div class="label">or</div>
+
 
         </div>
-
-        <div class="column3">
-            <div class="label">Enter</div>
-
-        </div>
-
-
-    </div>
+    </form>
 
     <!--<div class="data-entry-box">
         <form method="post" id="thisForm">
