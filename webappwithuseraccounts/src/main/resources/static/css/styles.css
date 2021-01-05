@@ -19,7 +19,7 @@ h2 {
     margin: auto;
     justify-content: center;
 }
-.label {
+.form-item .label {
     display: inline;
     font-family: "Georgia";
     color:darkred;
@@ -89,7 +89,7 @@ input[type=submit] {
     background-color: bisque;
     width: 35%;
     height: 90%;
-    display: flex;
+    display: block;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
@@ -111,6 +111,74 @@ input[type=submit] {
     margin-bottom: auto;
     margin-right: auto;
 }
+.label {
+    background-color: chocolate;
+    width: 100%;
+    height: 5%;
+    font-family: "Georgia";
+    color:burlywood;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+}
+.upload-container {
+    background-color: darkblue;
+    width: 100%;
+    height: 95%;
+    display: block;
+}
+.upload-line {
+    background-color: darkkhaki;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    margin: auto;
+}
+.upload-label {
+    display: inline;
+    width: 20%;
+    height: 100%;
+    background-color: coral;
+    margin-right: auto;   
+    text-align: right;
+}
+.upload-input {
+    display: inline;
+    width: 80%;
+    height: 100%;
+    background-color:darkcyan;
+    margin: auto;   
+}
+.upload-label label{
+    font-family: "Georgia";
+    font-weight: bold;
+    color:black;
+    margin-right: 10%;
+}
+.upload-input input {
+    font-family: "Georgia";
+    margin-left: 5%;
+}
+
+.data-error {
+    background-color:dimgray;
+    width: 100%;
+    height: 10%;
+    display: block;
+    text-align: center;
+    color:crimson;
+    font-family: "Georgia";
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
