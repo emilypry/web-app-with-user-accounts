@@ -86,9 +86,16 @@ input[type=submit] {
     display: inline-block;
     width: 30%;
 }
-.divider {
+.divider-box {
     display: inline-block;
     width: 30%;
+    background-color: antiquewhite;
+
+}
+.divider {
+    border-left: 3px solid darkslategray;
+    height: 150px;
+    margin-left: 50%;
 }
 .entry-box {
     background-color: chartreuse;
@@ -134,5 +141,10 @@ input[type=submit] {
     display: inline-block;
     height: 100%;
     width: 100%;
+}
+
+input[type=textarea] {
+    width: 90%;
+    height: 100px;
 }
 

@@ -11,7 +11,7 @@
     <p>Please upload or enter the X and Y values of your dataset.</p>
 
     <div class="data-entry-box">
-        <form method="post">
+        <form method="post" id="thisForm">
 
             <div class="file-box">
                 <div class="entry-type">Upload</div>
@@ -28,18 +28,22 @@
                 </div>
             </div>
 
-            <div class="divider">or</div>
+            <div class="divider-box">
+                <div class="divider"></div>
+            </div>
 
             <div class="entry-box">
                 <div class="entry-type">Enter</div>
                 <p>Values must be separated by new line or by comma</p>
                 <div>
                     <label for="xEnter">X: </label>
-                    <input type="textArea" name="xData" id="xEnter" />
+                    <!--<input type="textArea" name="xData" id="xEnter" />-->
+                    <textarea form="thisForm" name="xData" id="xEnter" cols=30 rows=12></textarea>
                 </div>
                 <div>
                     <label for="yEnter">Y: </label>
-                    <input type="textArea" name="yData" id="yEnter" />
+                    <!--<input type="textArea" name="yData" id="yEnter" />-->
+                    <textarea form="thisForm" name="yData" id="yEnter" cols=30 rows=12></textarea>
                 </div>
             </div>
 
