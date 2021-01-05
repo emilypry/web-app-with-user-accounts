@@ -75,22 +75,36 @@ input[type=submit] {
     margin-right: 15px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 .data-entry-box {
     height: 90%;
     width: 90%;
-    display: block;
-    background-color: aqua;    
+    display: flex;
+    background-color: aqua;   
 }
 .file-box {
     background-color: blueviolet;
-    display: inline-block;
+    display: inline;
     width: 30%;
+    margin-left: auto;
 }
 .divider-box {
-    display: inline-block;
+    display: inline;
     width: 30%;
     background-color: antiquewhite;
-
+    margin-left: auto;
 }
 .divider {
     border-left: 3px solid darkslategray;
@@ -99,7 +113,7 @@ input[type=submit] {
 }
 .entry-box {
     background-color: chartreuse;
-    display: inline-block;
+    display: inline;
     width: 30%;
 }
 .entry-type {
