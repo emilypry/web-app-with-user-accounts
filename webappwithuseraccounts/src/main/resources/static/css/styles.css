@@ -130,13 +130,13 @@ input[type=submit] {
 .upload-line {
     background-color: darkkhaki;
     width: 100%;
-    height: 10%;
+    height: 20%;
     display: flex;
     margin: auto;
 }
 .upload-label {
     display: inline;
-    width: 20%;
+    width: 10%;
     height: 100%;
     background-color: coral;
     margin-right: auto;   
@@ -144,7 +144,7 @@ input[type=submit] {
 }
 .upload-input {
     display: inline;
-    width: 80%;
+    width: 90%;
     height: 100%;
     background-color:darkcyan;
     margin: auto;   
