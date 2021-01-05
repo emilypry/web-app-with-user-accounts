@@ -75,5 +75,64 @@ input[type=submit] {
     margin-right: 15px;
 }
 
+.data-entry-box {
+    height: 90%;
+    width: 90%;
+    display: block;
+    background-color: aqua;    
+}
+.file-box {
+    background-color: blueviolet;
+    display: inline-block;
+    width: 30%;
+}
+.divider {
+    display: inline-block;
+    width: 30%;
+}
+.entry-box {
+    background-color: chartreuse;
+    display: inline-block;
+    width: 30%;
+}
+.entry-type {
+    font-family: "Georgia";
+    display: flex;
+    width: 30%;
+    background-color: brown;
+    justify-content: center;
+    margin: auto;
+    color:burlywood;
+    font-weight: bold;
+}
 
+.file-upload {
+    display: flex;
+    justify-content: center;
+    background-color: pink;
+    width: 90%;
+    margin: auto;
+}
+.file-upload label {
+    font-family: "Georgia";
+    font-weight: bold;
+    color:black;
+    display: inline;
+    width: 10%;
+    margin-left: 1%;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: coral;
+}
+.file-upload input {
+    display: inline;
+    width: 70%;
+    background-color: crimson;
+    margin-left: 3%;
+}
+.space {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
 
