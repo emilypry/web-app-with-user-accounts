@@ -15,9 +15,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
-import com.wordpress.boxofcubes.webappwithuseraccounts.data.FileSaverRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
-import com.wordpress.boxofcubes.webappwithuseraccounts.models.FileSaver;
 
 import java.io.FileNotFoundException;
 
@@ -37,8 +35,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("data")
 public class DataController {
-    //@Autowired
-    //private DatasetRepository datasetRepository;
+    @Autowired
+    private DatasetRepository datasetRepository;
 
     @GetMapping("upload")
     public String showUpload(){
@@ -46,12 +44,56 @@ public class DataController {
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam MultipartFile xFile, Model model){
-        File file = new File(xFile.getOriginalFilename());
-        try {
-            xFile.transferTo(file);
-            double[] numbers = Dataset.convertToNums(file);
+    public String processUpload(@RequestParam MultipartFile xFile, 
+                                @RequestParam MultipartFile yFile, Model model){
+        
+        File newXfile = new File(xFile.getOriginalFilename());
+        File newYfile = new File(yFile.getOriginalFilename());
 
+        double[] xVals;
+        double[] yVals;
+        try {
+            xFile.transferTo(newXfile);
+            xVals = Dataset.convertToNums(newXfile);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+            System.out.println("Couldn't find X file");
+            return "redirect:/data/upload";
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error with X file");
+            return "redirect:/data/upload";
+        }
+
+        try {
+            yFile.transferTo(newYfile);
+            yVals = Dataset.convertToNums(newYfile);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+            System.out.println("Couldn't find Y file");
+            return "redirect:/data/upload";
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error with Y file");
+            return "redirect:/data/upload";
+        }
+
+        if(xVals.length != yVals.length){
+            System.out.println("Number of X and Y values must be identical");
+            return "redirect:/data/upload";
+        }
+
+        Dataset dataset = new Dataset(xVals, yVals);
+        datasetRepository.save(dataset);
+        return "redirect:/data/graph";
+
+
+
+        /*try {
+            xFile.transferTo(newXfile);
+            double[] numbers = Dataset.convertToNums(newXfile);
             model.addAttribute("numbers", numbers);
 
             return "redirect:/data/graph";
@@ -61,41 +103,12 @@ public class DataController {
         }
         catch (IOException e) {
             e.printStackTrace();
-        } 
-        return "redirect:/data/upload";
-
-
-        
-
-
-
-        //byte[] theBytes = xFile.getBytes();
-        //InputStream inputStream =  new BufferedInputStream(xFile.getInputStream());
-        //return "ok";
-        /*BufferedReader reader;
-        
-        try {
-            InputStream stream = xFile.getInputStream(); 
-            reader = new BufferedReader(new InputStreamReader(stream));
-
-            String data = "";
-            while(true){
-                String line = reader.readLine();
-                if(line != null){
-                    data += line + " ";
-                }else{
-                    break;
-                }
-            }
-            return data;
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        return "error!";*/
+        } */
+        //return "redirect:/data/upload";
     }
 
     @GetMapping("graph")
-    public String showGraph(){
+    public String showGraph(Model model){
         return "data/graph";
     }
 }

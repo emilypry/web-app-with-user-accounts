@@ -18,10 +18,15 @@ public class Dataset {
     @Id
     @GeneratedValue
     private int id;
+    
     private double[] x;
     private double[] y;
 
     public Dataset(){}
+    public Dataset(double[] x, double[] y){
+        this.x = x;
+        this.y = y;
+    }
     public Dataset(int id, double[] x, double[] y){
         this.id = id;
         this.x = x;
