@@ -50,7 +50,7 @@ public class DataController {
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam MultipartFile xFile, Model model){
+    public String processUpload(@RequestParam("xFile") MultipartFile xFile, Model model){
         File file = new File(xFile.getOriginalFilename());
         try {
             xFile.transferTo(file);
