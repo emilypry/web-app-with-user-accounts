@@ -53,16 +53,19 @@ public class UserController{
     public String processSignup(@ModelAttribute @Valid User user, Errors errors, 
                                 @RequestParam String retyped, Model model){
 
+        User userExists = userRepository.findByUsername(user.getUsername());
         boolean identical = user.getPassword().equals(retyped);
 
-        if(identical==false || errors.hasErrors()){
+        if(identical==false || userExists != null || errors.hasErrors()){
             if(identical == false){
                 model.addAttribute("passError", "Passwords must be identical");
+            }
+            if(userExists != null){
+                model.addAttribute("userExists", "That username is taken");
             }
             return "user/signup";
         }
 
-        // CHECK THAT NO USER WITH THAT USERNAME ALREADY EXISTS!!!!
         userRepository.save(user);
         return "redirect:/data/upload";
     }

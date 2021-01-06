@@ -22,6 +22,7 @@
             </div>
             <div class="form-item">
                 <div class="error" th:errors="*{username}"></div>
+                <div class="error" th:if="${userExists}" th:text="${userExists}"></div>
             </div>
 
             <div class="form-item">
