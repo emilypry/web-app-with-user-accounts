@@ -46,8 +46,37 @@ public class DataController {
     @PostMapping("upload")
     public String processUpload(@RequestParam(required=false) String user_id,
         @RequestParam MultipartFile xFile, 
-                                @RequestParam MultipartFile yFile, Model model){
+                                @RequestParam MultipartFile yFile, 
+                                @RequestParam String xEntry, String yEntry, Model model){
+
+        if(xFile.isEmpty() && yFile.isEmpty() && xEntry.isEmpty() && yEntry.isEmpty()){
+            System.out.println("No data entered");
+            model.addAttribute("noDataError", "No data entered");
+        }else if((!xFile.isEmpty() || !yFile.isEmpty()) && (!xEntry.isEmpty() || !yEntry.isEmpty())){
+            System.out.println("Data entry types mixed");
+            model.addAttribute("dataMixError", "Please either upload or enter data");
+        }else if(!xFile.isEmpty() && yFile.isEmpty()){
+            System.out.println("Missing Y file");
+            model.addAttribute("yFileError", "Y file is missing");
+        }else if(!yFile.isEmpty() && xFile.isEmpty()){
+            System.out.println("Missing X file");
+            model.addAttribute("xFileError", "X file is missing");
+        }else if(!xEntry.isEmpty() && yEntry.isEmpty()){
+            System.out.println("Missing Y entry");
+            model.addAttribute("yEntryError", "Y entry is missing");
+        }else if(!yEntry.isEmpty() && xEntry.isEmpty()){
+            System.out.println("Missing X entry");
+            model.addAttribute("xEntryError", "X entry is missing");
+        }
         
+
+        return "data/upload";
+        //return "redirect:/data/upload";
+
+
+
+
+        /*
         File newXfile = new File(xFile.getOriginalFilename());
         File newYfile = new File(yFile.getOriginalFilename());
 
@@ -92,29 +121,16 @@ public class DataController {
         if(user_id != null){
             return "redirect:/data/graph?user_id="+user_id;
         }
-        
-        return "redirect:/data/graph";
+
+        return "redirect:/data/graph";*/
 
 
 
-        /*try {
-            xFile.transferTo(newXfile);
-            double[] numbers = Dataset.convertToNums(newXfile);
-            model.addAttribute("numbers", numbers);
-
-            return "redirect:/data/graph";
-
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } */
-        //return "redirect:/data/upload";
     }
 
     @GetMapping("graph")
     public String showGraph(Model model){
+
         return "data/graph";
     }
 }

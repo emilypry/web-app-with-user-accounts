@@ -9,6 +9,9 @@
     <h2>Upload Data</h2>
     <div th:replace="fragments :: menu"></div>
 
+    <div class="data-error" th:if="${noDataError}" th:text="${noDataError}"></div>
+    <div class="data-error" th:if="${dataMixError}" th:text="${dataMixError}"></div>
+
     <form method="post" id="thisForm" enctype="multipart/form-data">
         <div class="whole-container">
             <div class="column1">
@@ -27,7 +30,7 @@
                             <input type=file name="xFile" id="xUpload"/>
                         </div>
                     </div>
-                    <!--<div class="data-error">Error!!!!!!!</div>-->
+                    <div class="data-error" th:if="${xFileError}" th:text="${xFileError}"></div>
 
                     <div class="upload-line">
                         <div class="upload-line">
@@ -39,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="data-error">Error!!!!!!!</div>-->
+                    <div class="data-error" th:if="${yFileError}" th:text="${yFileError}"></div>
                 
                 </div>
             </div>
@@ -52,6 +55,7 @@
                 <div class="submit-button">
                     <input type="submit" value="Submit Data"/>
                 </div>
+
             </div>
 
             <div class="column3">
@@ -71,7 +75,7 @@
                             <textarea form="thisForm" name="xEntry" id="xEnter" cols=68 rows=13></textarea>
                         </div>
                     </div>
-                    <!--<div class="data-error">Error!!!!</div>-->
+                    <div class="data-error" th:if="${xEntryError}" th:text="${xEntryError}"></div>
 
                     <div class="entry-box">
                         <div class="entry-label">
@@ -82,12 +86,14 @@
                             <textarea form="thisForm" name="yEntry" id="yEnter" cols=68 rows=13></textarea>
                         </div>
                     </div>
-                    <!--<div class="data-error">Error!!!!</div>-->
+                    <div class="data-error" th:if="${yEntryError}" th:text="${yEntryError}"></div>
                 </div>
                 
             </div>
         </div>
     </form>
+
+    
 
 </body>
 </html>
