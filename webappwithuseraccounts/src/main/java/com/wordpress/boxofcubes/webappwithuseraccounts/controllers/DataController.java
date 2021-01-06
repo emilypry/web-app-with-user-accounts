@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
+
 import java.io.FileNotFoundException;
 
 
@@ -41,6 +44,9 @@ public class DataController {
         File file = new File(xFile.getOriginalFilename());
         try {
             xFile.transferTo(file);
+            double[] nums = Dataset.convertToNums(file);
+
+
         }catch (IOException e) {
             e.printStackTrace();
         } 
