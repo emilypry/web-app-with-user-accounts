@@ -39,12 +39,13 @@ public class DataController {
     private DatasetRepository datasetRepository;
 
     @GetMapping("upload")
-    public String showUpload(){
+    public String showUpload(@RequestParam(required=false) String user_id){
         return "data/upload";
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam MultipartFile xFile, 
+    public String processUpload(@RequestParam(required=false) String user_id,
+        @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, Model model){
         
         File newXfile = new File(xFile.getOriginalFilename());
@@ -87,6 +88,11 @@ public class DataController {
 
         Dataset dataset = new Dataset(xVals, yVals);
         datasetRepository.save(dataset);
+
+        if(user_id != null){
+            return "redirect:/data/graph?user_id="+user_id;
+        }
+        
         return "redirect:/data/graph";
 
 
