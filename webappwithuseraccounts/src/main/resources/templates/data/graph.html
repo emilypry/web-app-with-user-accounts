@@ -8,7 +8,11 @@
 <body>
     <h2>Graph!</h2>
 
-    <p th:each="${num : numbers}" th:text="${num}"></p>
+    <ol th:if="${numbers != null}">
+        <li th:each="${num : numbers}" th:text="${num}"></li>
+    </ol>
+    
+
 
 
 

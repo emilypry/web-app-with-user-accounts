@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
+import com.wordpress.boxofcubes.webappwithuseraccounts.data.FileSaverRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 
 import java.io.FileNotFoundException;
@@ -33,6 +35,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("data")
 public class DataController {
+    @Autowired
+    private DatasetRepository datasetRepository;
+
+    @Autowired
+    private FileSaverRepository fileSaverRepository;
+
+
     @GetMapping("upload")
     public String showUpload(){
         return "data/upload";
@@ -40,49 +49,54 @@ public class DataController {
 
     @PostMapping("upload")
     @ResponseBody
-    public String processUpload(@RequestParam MultipartFile xFile){
+    public String processUpload(@RequestParam MultipartFile xFile, Model model){
         File file = new File(xFile.getOriginalFilename());
         try {
             xFile.transferTo(file);
-            double[] nums = Dataset.convertToNums(file);
+            //double[] numbers = Dataset.convertToNums(file);
+            //model.addAttribute("numbers", file);
+            return "redirect:/data/graph";
 
-
-        }catch (IOException e) {
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         } 
+        return "redirect:/data/upload";
 
-        return "ok";
 
-        /*double[] dubs = new double[nums.size()];
-        for(int i=0; i<nums.size(); i++){
-            dubs[i] = nums.get(i);
-            System.out.println(dubs[i]);
-        }
+        
+
+
 
         //byte[] theBytes = xFile.getBytes();
         //InputStream inputStream =  new BufferedInputStream(xFile.getInputStream());
-        return "ok";
-        BufferedReader reader;
+        //return "ok";
+        /*BufferedReader reader;
         
         try {
-            InputStream is = xFile.getInputStream(); //exception is thrown here
-            reader = new BufferedReader(new InputStreamReader(is));
+            InputStream stream = xFile.getInputStream(); 
+            reader = new BufferedReader(new InputStreamReader(stream));
 
             String data = "";
             while(true){
                 String line = reader.readLine();
                 if(line != null){
-                    data += line + "\t";
+                    data += line + " ";
                 }else{
                     break;
                 }
-                
             }
-            
             return data;
-        }catch(IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
-        return "error";*/
+        return "error!";*/
+    }
+
+    @GetMapping("graph")
+    public String showGraph(){
+        return "data/graph";
     }
 }
