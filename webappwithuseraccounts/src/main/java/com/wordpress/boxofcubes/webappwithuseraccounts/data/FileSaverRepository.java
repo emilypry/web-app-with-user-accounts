@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FileSaverRepository extends CrudRepository<FileSaver, Integer>{
+
+    public FileSaver findById(int id);
 }

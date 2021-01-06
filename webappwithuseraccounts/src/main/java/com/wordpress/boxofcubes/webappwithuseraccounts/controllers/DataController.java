@@ -11,11 +11,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.FileSaverRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.FileSaver;
 
 import java.io.FileNotFoundException;
 
@@ -48,13 +50,44 @@ public class DataController {
     }
 
     @PostMapping("upload")
-    @ResponseBody
     public String processUpload(@RequestParam MultipartFile xFile, Model model){
         File file = new File(xFile.getOriginalFilename());
         try {
             xFile.transferTo(file);
             //double[] numbers = Dataset.convertToNums(file);
-            //model.addAttribute("numbers", file);
+            //model.addAttribute("numbers", numbers);
+
+            FileSaver saver = new FileSaver();
+            saver.setFile(file);
+            fileSaverRepository.save(saver);
+
+            double[] numbers = saver.convertToNums();
+
+            /*Optional<FileSaver> reader = fileSaverRepository.findById(saver.getId());
+
+            if(reader.isPresent()){
+                reader.
+            }*/
+
+            //double[] numbers = Dataset.convertToNums(fileSaverRepository.findById(saver.getId()).getFile());
+
+            /*FileSaver reader = fileSaverRepository.findById(saver.getId());
+
+            if(reader != null){
+                double[] numbers = Dataset.convertToNums(reader.getFile());
+                model.addAttribute("numbers", numbers);
+            }*/
+            model.addAttribute("numbers", numbers);
+            
+
+
+            /*FileSaver reader;
+            if(fileSaverRepository.findById(saver.getId()) != null){
+                reader = fileSaverRepository.findById(saver.getId());
+            }
+            int id = saver.getId();
+            FileSaver reader = fileSaverRepository.findById(id);*/
+
             return "redirect:/data/graph";
 
         }catch(FileNotFoundException e){
