@@ -1,5 +1,14 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -38,18 +47,34 @@ public class Dataset {
         this.y = y;
     }
 
-    public static double[] convertToNums(String data){
-        System.out.println("called");
-        String[] dataPieces = data.split("\\s");
-
-        double[] nums = new double[dataPieces.length];
-        for(int i=0; i<dataPieces.length; i++){
-            System.out.print(dataPieces[i]+" ");
-            nums[i] = Double.valueOf(dataPieces[i]);
-            System.out.println(nums[i]);
+    public static double[] convertToNums(File file){
+        ArrayList<Double> numbers = new ArrayList<>();
+        Scanner scan = null;
+        try{
+            scan = new Scanner(file);
+            scan.useDelimiter("\s*|,");
+            while(scan.hasNext()){
+                numbers.add(scan.nextDouble());
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch(InputMismatchException e){
+            e.printStackTrace();
+        }finally{
+            if(null != scan){
+                scan.close();
+            }
         }
 
-        return nums;
+        double[] list = new double[numbers.size()];
+        for(int i=0; i<numbers.size(); i++){
+            list[i] = numbers.get(i);
+            System.out.println(list[i]);
+        }
+
+        return list;
+    
+
     }
 
     public static void main(String[] args){
