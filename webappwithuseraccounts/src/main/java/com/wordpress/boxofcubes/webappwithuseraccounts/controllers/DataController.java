@@ -51,38 +51,8 @@ public class DataController {
         try {
             xFile.transferTo(file);
             double[] numbers = Dataset.convertToNums(file);
-            //model.addAttribute("numbers", numbers);
 
-            /*FileSaver saver = new FileSaver();
-            saver.setFile(file);
-            fileSaverRepository.save(saver);
-
-            double[] numbers = saver.convertToNums();*/
-
-            /*Optional<FileSaver> reader = fileSaverRepository.findById(saver.getId());
-
-            if(reader.isPresent()){
-                reader.
-            }*/
-
-            //double[] numbers = Dataset.convertToNums(fileSaverRepository.findById(saver.getId()).getFile());
-
-            /*FileSaver reader = fileSaverRepository.findById(saver.getId());
-
-            if(reader != null){
-                double[] numbers = Dataset.convertToNums(reader.getFile());
-                model.addAttribute("numbers", numbers);
-            }*/
             model.addAttribute("numbers", numbers);
-            
-
-
-            /*FileSaver reader;
-            if(fileSaverRepository.findById(saver.getId()) != null){
-                reader = fileSaverRepository.findById(saver.getId());
-            }
-            int id = saver.getId();
-            FileSaver reader = fileSaverRepository.findById(id);*/
 
             return "redirect:/data/graph";
 
