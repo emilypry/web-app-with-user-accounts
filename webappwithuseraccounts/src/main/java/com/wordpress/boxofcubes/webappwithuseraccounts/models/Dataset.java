@@ -52,7 +52,7 @@ public class Dataset {
         Scanner scan = null;
         try{
             scan = new Scanner(file);
-            scan.useDelimiter("\s*|,");
+            //scan.useDelimiter("\s*|,");
             while(scan.hasNext()){
                 numbers.add(scan.nextDouble());
             }
@@ -71,6 +71,8 @@ public class Dataset {
             list[i] = numbers.get(i);
             System.out.println(list[i]);
         }
+        System.out.println("Null? "+(list == null));
+        System.out.println("Length "+(list.length));
 
         return list;
     

@@ -37,12 +37,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("data")
 public class DataController {
-    @Autowired
-    private DatasetRepository datasetRepository;
-
-    @Autowired
-    private FileSaverRepository fileSaverRepository;
-
+    //@Autowired
+    //private DatasetRepository datasetRepository;
 
     @GetMapping("upload")
     public String showUpload(){
@@ -50,18 +46,18 @@ public class DataController {
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam("xFile") MultipartFile xFile, Model model){
+    public String processUpload(@RequestParam MultipartFile xFile, Model model){
         File file = new File(xFile.getOriginalFilename());
         try {
             xFile.transferTo(file);
-            //double[] numbers = Dataset.convertToNums(file);
+            double[] numbers = Dataset.convertToNums(file);
             //model.addAttribute("numbers", numbers);
 
-            FileSaver saver = new FileSaver();
+            /*FileSaver saver = new FileSaver();
             saver.setFile(file);
             fileSaverRepository.save(saver);
 
-            double[] numbers = saver.convertToNums();
+            double[] numbers = saver.convertToNums();*/
 
             /*Optional<FileSaver> reader = fileSaverRepository.findById(saver.getId());
 

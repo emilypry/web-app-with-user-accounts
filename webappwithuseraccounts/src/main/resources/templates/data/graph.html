@@ -11,6 +11,12 @@
     <ol th:if="${numbers != null}">
         <li th:each="${num : numbers}" th:text="${num}"></li>
     </ol>
+    <ol th:if="${numbers!=null and !numbers.isEmpty()}">
+        <li th:each="${num : numbers}" th:text="${num}"></li>
+    </ol>
+
+    <p th:each="${num : numbers}" th:text="${num}"></p>
+
     
 
 
