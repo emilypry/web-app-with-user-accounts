@@ -17,6 +17,7 @@ import java.util.Scanner;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
 import java.io.FileNotFoundException;
 
@@ -48,7 +49,7 @@ public class DataController {
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam(required=false) String user_id,
+    public String processUpload(@RequestParam(required=false) Integer user_id,
                                 @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, 
                                 @RequestParam String xEntry, String yEntry, Model model){
@@ -150,10 +151,15 @@ public class DataController {
         }else{
             
             if(user_id == null){
+                Dataset dataset = new Dataset(xVals, yVals); // modified
+                datasetRepository.save(dataset);
                 return "redirect:/data/graph";
             }else{
-                //Dataset dataset = new Dataset(xVals, yVals, userRepository.findById(user_id)); // modified, moved
-                //datasetRepository.save(dataset);
+                Optional<User> user = userRepository.findById(user_id);
+                if(user.isPresent()){
+                    Dataset dataset = new Dataset(xVals, yVals, user.get()); // modified, moved
+                    datasetRepository.save(dataset);
+                }
                 return "redirect:/data/graph?user_id="+user_id;
             }
         }

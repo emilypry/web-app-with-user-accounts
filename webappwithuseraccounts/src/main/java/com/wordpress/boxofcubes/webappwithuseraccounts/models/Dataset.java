@@ -25,16 +25,20 @@ public class Dataset {
     private double[] x;
     private double[] y;
 
-    @ManyToOne //added
-    private User owner; // user can have many datasets
+    @ManyToOne 
+    private User owner; 
 
     public Dataset(){}
-    public Dataset(double[] x, double[] y, User owner){ //modified
+    public Dataset(double[] x, double[] y){ 
+        this.x = x;
+        this.y = y;
+    }
+    public Dataset(double[] x, double[] y, User owner){ 
         this.x = x;
         this.y = y;
         this.owner = owner;
     }
-    public Dataset(int id, double[] x, double[] y, User owner){ //modified
+    public Dataset(int id, double[] x, double[] y, User owner){ 
         this.id = id;
         this.x = x;
         this.y = y;
@@ -58,6 +62,12 @@ public class Dataset {
     }
     public void setY(double[] y){
         this.y = y;
+    }
+    public User getOwner(){
+        return owner;
+    }
+    public void setOwner(User owner){
+        this.owner = owner;
     }
 
 
