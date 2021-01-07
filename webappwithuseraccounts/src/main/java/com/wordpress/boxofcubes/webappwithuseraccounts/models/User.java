@@ -1,10 +1,12 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,14 +24,14 @@ public class User {
     @Size(min=7, max=20, message="Password must be 7-20 characters long")
     private String password; 
 
-    private ArrayList<Dataset> data;
+    @OneToMany(mappedBy = "owner")
+    private final List<Dataset> data = new ArrayList<>();
 
     public User(){}
-    public User(int id, String username, String password, ArrayList<Dataset> data){
+    public User(int id, String username, String password){
         this.id = id;
         this.username = username;
         this.password = password;
-        this.data = data;
     }
 
     public int getId(){
@@ -50,11 +52,8 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
-    public ArrayList<Dataset> getData(){
+    public List<Dataset> getData(){
         return data;
-    }
-    public void setData(ArrayList<Dataset> data){
-        this.data = data;
     }
 
 }

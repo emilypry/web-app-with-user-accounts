@@ -41,7 +41,7 @@ public class DataController {
     private DatasetRepository datasetRepository;
 
     @Autowired
-    private UserRepository userRepository; //added
+    private UserRepository userRepository; 
 
     @GetMapping("upload")
     public String showUpload(@RequestParam(required=false) Integer user_id){
@@ -151,13 +151,13 @@ public class DataController {
         }else{
             
             if(user_id == null){
-                Dataset dataset = new Dataset(xVals, yVals); // modified
+                Dataset dataset = new Dataset(xVals, yVals); 
                 datasetRepository.save(dataset);
                 return "redirect:/data/graph";
             }else{
                 Optional<User> user = userRepository.findById(user_id);
                 if(user.isPresent()){
-                    Dataset dataset = new Dataset(xVals, yVals, user.get()); // modified, moved
+                    Dataset dataset = new Dataset(xVals, yVals, user.get()); 
                     datasetRepository.save(dataset);
                 }
                 return "redirect:/data/graph?user_id="+user_id;

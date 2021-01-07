@@ -2,6 +2,7 @@ package com.wordpress.boxofcubes.webappwithuseraccounts.controllers;
 
 import javax.validation.Valid;
 
+import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("user")
 public class UserController{
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DatasetRepository datasetRepository;
     
     @GetMapping("login")
     public String showLogin(){
@@ -65,6 +69,7 @@ public class UserController{
             }
             return "user/signup";
         }
+
 
         userRepository.save(user);
         return "redirect:/data/upload?user_id="+user.getId();
