@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -44,7 +45,12 @@ public class DataController {
     private UserRepository userRepository; 
 
     @GetMapping("upload")
-    public String showUpload(@RequestParam(required=false) Integer user_id){
+    /*public String showUpload(@RequestParam(required=false) Integer user_id){
+        return "data/upload";
+    }*/
+    public String showUpload(@ModelAttribute("thisUserId") String thisUserId, Model model, @RequestParam String id){
+        System.out.println("this user: "+thisUserId);
+        System.out.println("this user: "+id);
         return "data/upload";
     }
 
