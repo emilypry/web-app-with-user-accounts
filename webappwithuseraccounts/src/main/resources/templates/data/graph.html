@@ -8,15 +8,13 @@
 <body>
     <h2>Graph!</h2>
 
-
-    <ol th:if="${numbers.length > 0 }">
-        <li th:each="num : ${numbers}" th:text="${num}"></li>
-    </ol>
+    <p>Ok</p>
 
 
+    <img th:src="${graphOfDataset}" height=400 width=700>
     
 
-
+    <img th:src="@{/images/mychart}" height=200 width=300>
 
 
 </body>

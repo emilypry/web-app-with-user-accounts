@@ -17,6 +17,7 @@ import java.util.Scanner;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.Graph;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
 import java.io.FileNotFoundException;
@@ -166,13 +167,24 @@ public class DataController {
         return "data/upload";
     }
 
-    @GetMapping("graph")
+
+
+    /*@GetMapping("graph")
     public String showGraph(@RequestParam Integer user_id, Integer dataset_id,
                             Model model){
         Optional<Dataset> data = datasetRepository.findById(dataset_id);
         if(data.isPresent()){
-            model.addAttribute("numbers", data.get().getX());
+            Graph graph = new Graph("graphOfDataset");
+            
+
+
+
+
+            model.addAttribute("graphOfDataset", graph.getGraph(data.get());
+        
+        
+        
         }
         return "data/graph";
-    }
+    }*/
 }
