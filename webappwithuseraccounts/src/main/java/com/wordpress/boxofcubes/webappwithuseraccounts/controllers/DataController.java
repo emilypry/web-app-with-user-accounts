@@ -45,12 +45,7 @@ public class DataController {
     private UserRepository userRepository; 
 
     @GetMapping("upload")
-    /*public String showUpload(@RequestParam(required=false) Integer user_id){
-        return "data/upload";
-    }*/
-    public String showUpload(@ModelAttribute("thisUserId") String thisUserId, Model model, @RequestParam String id){
-        System.out.println("this user: "+thisUserId);
-        System.out.println("this user: "+id);
+    public String showUpload(@RequestParam(required=false) Integer user_id){
         return "data/upload";
     }
 
@@ -154,85 +149,30 @@ public class DataController {
 
         if(errors == true){
             return "data/upload";
-        }else{
-            
+        }else{          
             if(user_id == null){
                 Dataset dataset = new Dataset(xVals, yVals); 
                 datasetRepository.save(dataset);
-                return "redirect:/data/graph";
+                return "redirect:/data/graph?dataset_id="+dataset.getId();
             }else{
                 Optional<User> user = userRepository.findById(user_id);
                 if(user.isPresent()){
                     Dataset dataset = new Dataset(xVals, yVals, user.get()); 
                     datasetRepository.save(dataset);
-                }
-                return "redirect:/data/graph?user_id="+user_id;
+                    return "redirect:/data/graph?user_id="+user_id+"&dataset_id="+dataset.getId();
+                }   
             }
         }
-
-
-
-        
-        //return "redirect:/data/upload";
-
-
-
-
-        /*
-        File newXfile = new File(xFile.getOriginalFilename());
-        File newYfile = new File(yFile.getOriginalFilename());
-
-        double[] xVals;
-        double[] yVals;
-        try {
-            xFile.transferTo(newXfile);
-            xVals = Dataset.convertToNums(newXfile);
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Couldn't find X file");
-            return "redirect:/data/upload";
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error with X file");
-            return "redirect:/data/upload";
-        }
-
-        try {
-            yFile.transferTo(newYfile);
-            yVals = Dataset.convertToNums(newYfile);
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-            System.out.println("Couldn't find Y file");
-            return "redirect:/data/upload";
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error with Y file");
-            return "redirect:/data/upload";
-        }
-
-        if(xVals.length != yVals.length){
-            System.out.println("Number of X and Y values must be identical");
-            return "redirect:/data/upload";
-        }
-
-        Dataset dataset = new Dataset(xVals, yVals);
-        datasetRepository.save(dataset);
-
-        if(user_id != null){
-            return "redirect:/data/graph?user_id="+user_id;
-        }
-
-        return "redirect:/data/graph";*/
-
-
-
+        return "data/upload";
     }
 
     @GetMapping("graph")
-    public String showGraph(Model model){
-
+    public String showGraph(@RequestParam Integer user_id, Integer dataset_id,
+                            Model model){
+        Optional<Dataset> data = datasetRepository.findById(dataset_id);
+        if(data.isPresent()){
+            model.addAttribute("numbers", data.get().getX());
+        }
         return "data/graph";
     }
 }
