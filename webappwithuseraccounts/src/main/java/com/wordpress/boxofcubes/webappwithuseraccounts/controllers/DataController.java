@@ -19,7 +19,7 @@ import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 
 import java.io.FileNotFoundException;
 
-
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,32 +45,111 @@ public class DataController {
 
     @PostMapping("upload")
     public String processUpload(@RequestParam(required=false) String user_id,
-        @RequestParam MultipartFile xFile, 
+                                @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, 
                                 @RequestParam String xEntry, String yEntry, Model model){
 
+        boolean errors = false;
+
         if(xFile.isEmpty() && yFile.isEmpty() && xEntry.isEmpty() && yEntry.isEmpty()){
-            System.out.println("No data entered");
             model.addAttribute("noDataError", "No data entered");
+            errors = true;
         }else if((!xFile.isEmpty() || !yFile.isEmpty()) && (!xEntry.isEmpty() || !yEntry.isEmpty())){
-            System.out.println("Data entry types mixed");
             model.addAttribute("dataMixError", "Please either upload or enter data");
+            errors = true;
         }else if(!xFile.isEmpty() && yFile.isEmpty()){
-            System.out.println("Missing Y file");
             model.addAttribute("yFileError", "Y file is missing");
+            errors = true;
         }else if(!yFile.isEmpty() && xFile.isEmpty()){
-            System.out.println("Missing X file");
             model.addAttribute("xFileError", "X file is missing");
+            errors = true;
         }else if(!xEntry.isEmpty() && yEntry.isEmpty()){
-            System.out.println("Missing Y entry");
             model.addAttribute("yEntryError", "Y entry is missing");
+            errors = true;
         }else if(!yEntry.isEmpty() && xEntry.isEmpty()){
-            System.out.println("Missing X entry");
             model.addAttribute("xEntryError", "X entry is missing");
+            errors = true;
         }
+
+        File newXfile; 
+        File newYfile; 
+        double[] xVals;
+        double[] yVals;
+
+        if(!xFile.isEmpty()){
+            try{ 
+                newXfile = new File(xFile.getOriginalFilename());
+                xFile.transferTo(newXfile);
+                xVals = Dataset.convertToNums(newXfile);
+            }catch(FileNotFoundException e){
+                model.addAttribute("xFileError", "Can't find X file");
+                errors = true;
+            }catch(InputMismatchException e){
+                model.addAttribute("xFileError", "X file contains non-numbers");
+                errors = true;
+            }catch(IOException e){
+                model.addAttribute("xFileError", "Error with X file");
+                errors = true;
+            }
+            try{ 
+                newYfile = new File(xFile.getOriginalFilename());
+                yFile.transferTo(newYfile);
+                yVals = Dataset.convertToNums(newYfile);
+            }catch(FileNotFoundException e){
+                model.addAttribute("yFileError", "Can't find Y file");
+                errors = true;
+            }catch(InputMismatchException e){
+                model.addAttribute("yFileError", "Y file contains non-numbers");
+                errors = true;
+            }catch(IOException e){
+                model.addAttribute("yFileError", "Error with Y file");
+                errors = true;
+            }
+        }else if(!xEntry.isEmpty()){
+            try{
+                newXfile = new File("file");
+                FileUtils.writeStringToFile(newXfile, xEntry);
+                xVals = Dataset.convertToNums(newXfile);
+            }catch(FileNotFoundException e){
+                model.addAttribute("xEntryError", "Error with X entry");
+                errors = true;
+            }catch(InputMismatchException e){
+                model.addAttribute("xEntryError", "X entry contains non-numbers");
+                errors = true;
+            }catch(IOException e){
+                model.addAttribute("xEntryError", "Error with X entry");
+                errors = true;
+            }
+            try{
+                newYfile = new File("file");
+                FileUtils.writeStringToFile(newYfile, yEntry);
+                yVals = Dataset.convertToNums(newYfile);
+            }catch(FileNotFoundException e){
+                model.addAttribute("yEntryError", "Error with Y entry");
+                errors = true;
+            }catch(InputMismatchException e){
+                model.addAttribute("yEntryError", "Y entry contains non-numbers");
+                errors = true;
+            }catch(IOException e){
+                model.addAttribute("yEntryError", "Error with Y entry");
+                errors = true;
+            }  
+        }
+
+
+        
+        if(errors == true){
+            return "data/upload";
+        }else{
+            return "redirect:/data/graph";
+        }
+
+        
+       
         
 
-        return "data/upload";
+
+        
         //return "redirect:/data/upload";
 
 

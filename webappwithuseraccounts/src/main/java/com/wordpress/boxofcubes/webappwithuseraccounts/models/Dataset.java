@@ -13,12 +13,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.apache.commons.io.FileUtils;
+
 @Entity
 public class Dataset {
     @Id
     @GeneratedValue
     private int id;
-    
+
     private double[] x;
     private double[] y;
 
@@ -52,24 +54,17 @@ public class Dataset {
         this.y = y;
     }
 
-    public static double[] convertToNums(File file){
+
+    public static double[] convertToNums(File file) throws FileNotFoundException, InputMismatchException{
         ArrayList<Double> numbers = new ArrayList<>();
-        Scanner scan = null;
-        try{
-            scan = new Scanner(file);
-            //scan.useDelimiter("\s*|,");
-            while(scan.hasNext()){
-                numbers.add(scan.nextDouble());
-            }
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }catch(InputMismatchException e){
-            e.printStackTrace();
-        }finally{
-            if(null != scan){
-                scan.close();
-            }
+        
+        Scanner scan = new Scanner(file);
+        //scan.useDelimiter("\s*|,");
+        while(scan.hasNext()){
+            numbers.add(scan.nextDouble());
         }
+        scan.close();
+        
 
         double[] list = new double[numbers.size()];
         for(int i=0; i<numbers.size(); i++){
@@ -86,6 +81,15 @@ public class Dataset {
 
     public static void main(String[] args){
         String data = "1   2 3  4 5 ";
-        //convertToNums(data);
+        File file = new File(data);
+        System.out.println(file.canRead());
+
+        try{
+            FileUtils.writeStringToFile(file, data);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+
+        System.out.println(file.canRead());
     }
 }
