@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
+import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 
 import java.io.FileNotFoundException;
@@ -38,8 +39,11 @@ public class DataController {
     @Autowired
     private DatasetRepository datasetRepository;
 
+    @Autowired
+    private UserRepository userRepository; //added
+
     @GetMapping("upload")
-    public String showUpload(@RequestParam(required=false) String user_id){
+    public String showUpload(@RequestParam(required=false) Integer user_id){
         return "data/upload";
     }
 
@@ -52,10 +56,10 @@ public class DataController {
         boolean errors = false;
 
         if(xFile.isEmpty() && yFile.isEmpty() && xEntry.isEmpty() && yEntry.isEmpty()){
-            model.addAttribute("noDataError", "No data entered");
+            model.addAttribute("generalError", "No data entered");
             errors = true;
         }else if((!xFile.isEmpty() || !yFile.isEmpty()) && (!xEntry.isEmpty() || !yEntry.isEmpty())){
-            model.addAttribute("dataMixError", "Please either upload or enter data");
+            model.addAttribute("generalError", "Please either upload or enter data");
             errors = true;
         }else if(!xFile.isEmpty() && yFile.isEmpty()){
             model.addAttribute("yFileError", "Y file is missing");
@@ -73,8 +77,8 @@ public class DataController {
 
         File newXfile; 
         File newYfile; 
-        double[] xVals;
-        double[] yVals;
+        double[] xVals = null;
+        double[] yVals = null;
 
         if(!xFile.isEmpty()){
             try{ 
@@ -136,17 +140,24 @@ public class DataController {
             }  
         }
 
+        if(errors == false && xVals.length != yVals.length){
+            model.addAttribute("generalError", "Number of X and Y values must be identical");
+            errors = true;
+        }
 
-        
         if(errors == true){
             return "data/upload";
         }else{
-            return "redirect:/data/graph";
+            
+            if(user_id == null){
+                return "redirect:/data/graph";
+            }else{
+                //Dataset dataset = new Dataset(xVals, yVals, userRepository.findById(user_id)); // modified, moved
+                //datasetRepository.save(dataset);
+                return "redirect:/data/graph?user_id="+user_id;
+            }
         }
 
-        
-       
-        
 
 
         

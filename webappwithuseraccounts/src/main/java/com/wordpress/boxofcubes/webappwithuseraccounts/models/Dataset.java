@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.io.FileUtils;
 
@@ -24,15 +25,20 @@ public class Dataset {
     private double[] x;
     private double[] y;
 
+    @ManyToOne //added
+    private User owner; // user can have many datasets
+
     public Dataset(){}
-    public Dataset(double[] x, double[] y){
+    public Dataset(double[] x, double[] y, User owner){ //modified
         this.x = x;
         this.y = y;
+        this.owner = owner;
     }
-    public Dataset(int id, double[] x, double[] y){
+    public Dataset(int id, double[] x, double[] y, User owner){ //modified
         this.id = id;
         this.x = x;
         this.y = y;
+        this.owner = owner;
     }
 
     public int getId(){
