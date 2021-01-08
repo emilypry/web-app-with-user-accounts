@@ -38,10 +38,10 @@ public class ChartServlet extends HttpServlet{
         out.println("<p>hey there partner</p>");*/
 
         //if(data.isPresent()){
-            String myObjectId = request.getParameter("myObjectId");
-            System.out.println("Servlet got myObjectId: "+myObjectId);
-            System.out.println("Servlet got req: "+request.getSession().getAttribute(myObjectId));
-            Dataset data = (Dataset)request.getSession().getAttribute(myObjectId);
+            String dataObjectId = request.getParameter("dataObjectId");
+            System.out.println("Servlet got dataObjectId: "+dataObjectId);
+            System.out.println("Servlet got req: "+request.getSession().getAttribute(dataObjectId));
+            Dataset data = (Dataset)request.getSession().getAttribute(dataObjectId);
             System.out.println("IS DATA NULL IN SERVLET: "+data);
             response.setContentType("image/png");
             OutputStream outputStream = response.getOutputStream();

@@ -52,12 +52,12 @@ public class DataController {
     private UserRepository userRepository; 
 
     @GetMapping("upload")
-    public String showUpload(@RequestParam(required=false) Integer user_id){
+    public String showUpload(@RequestParam(required=false) Integer userId){
         return "data/upload";
     }
 
     @PostMapping("upload")
-    public String processUpload(@RequestParam(required=false) Integer user_id,
+    public String processUpload(@RequestParam(required=false) Integer userId,
                                 @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, 
                                 @RequestParam String xEntry, String yEntry, Model model,
@@ -159,74 +159,37 @@ public class DataController {
         if(errors == true){
             return "data/upload";
         }else{          
-            if(user_id == null){
+            if(userId == null){
+                // Save the dataset to the repository
                 Dataset dataset = new Dataset(xVals, yVals); 
                 datasetRepository.save(dataset);
 
-                //model.addAttribute("data", dataset);
-                String myObjectId = UUID.randomUUID().toString();
-                System.out.println("original uuid: "+myObjectId);
-                //model.addAttribute("myObjectId", myObjectId);
-                request.getSession().setAttribute(myObjectId, dataset);
+                // Create a unique ID for this Dataset object
+                String dataObjectId = UUID.randomUUID().toString();
+                System.out.println("original uuid: "+dataObjectId);
+                request.getSession().setAttribute(dataObjectId, dataset);
 
-                return "redirect:/data/graph/view?myObjectId="+myObjectId;
-                //return "redirect:/data/graph?myObjectId="+myObjectId;
-                //return "redirect:/data/graph?dataset_id="+dataset.getId();
+                // Go to the page for ChartServlet
+                return "redirect:/data/graph?datasetId="+dataset.getId()+"&dataObjectId="+dataObjectId;
+
             }else{
-                Optional<User> user = userRepository.findById(user_id);
+                Optional<User> user = userRepository.findById(userId);
                 if(user.isPresent()){
+                    // Save the dataset to the repository
                     Dataset dataset = new Dataset(xVals, yVals, user.get()); 
                     datasetRepository.save(dataset);
 
-                    //model.addAttribute("data", dataset);
+                    // Create a unique ID for this Dataset object
+                    String dataObjectId = UUID.randomUUID().toString();
+                    System.out.println("original uuid: "+dataObjectId);
+                    request.getSession().setAttribute(dataObjectId, dataset);
 
-                    return "redirect:/data/graph?user_id="+user_id+"&dataset_id="+dataset.getId();
+                    // Go to the page for ChartServlet
+                    return "redirect:/data/graph?userId="+userId+"&datasetId="+dataset.getId()+"&dataObjectId="+dataObjectId;
                 }   
             }
         }
         return "data/upload";
     }
 
-    /*@GetMapping("graph")
-    public String showBlank(@RequestParam String myObjectId, Model model){
-        //Optional<Dataset> data = datasetRepository.findById(dataset_id);
-        //if(data.isPresent()){
-            //model.addAttribute("myObjectId", myObjectId);
-            System.out.println("myObjectId in get for graph:" +myObjectId);
-        //}
-        
-        //return "redirect:/data/graph/view";
-        //return "data/graph/view?myObjectId="+myObjectId;
-        return "data/graph";
-        
-    }
-    @PostMapping("graph")
-    public String goToServlet(@RequestParam String myObjectId, Model model){
-        //model.addAttribute("myObjectId", myObjectId);
-        System.out.println("added myObjectId to model in post: "+myObjectId);
-        // OR
-        //return "redirect:/data/graph/view";
-        return "redirect:/data/graph/view?myObjectId="+myObjectId;
-    }*/
-
-
-
-    /*@GetMapping("graph")
-    public String showGraph(@RequestParam Integer user_id, Integer dataset_id,
-                            Model model){
-        Optional<Dataset> data = datasetRepository.findById(dataset_id);
-        if(data.isPresent()){
-            Graph graph = new Graph("graphOfDataset");
-            
-
-
-
-
-            model.addAttribute("graphOfDataset", graph.getGraph(data.get());
-        
-        
-        
-        }
-        return "data/graph";
-    }*/
 }

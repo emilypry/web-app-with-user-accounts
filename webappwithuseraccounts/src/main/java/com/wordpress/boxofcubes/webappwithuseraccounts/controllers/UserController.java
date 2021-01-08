@@ -44,7 +44,7 @@ public class UserController{
             return "user/login";
         }
 
-        return "redirect:/data/upload?user_id="+user.getId();
+        return "redirect:/data/upload?userId="+user.getId();
     }
     
 
@@ -71,7 +71,7 @@ public class UserController{
         }
 
         userRepository.save(user);
-        return "redirect:/data/upload?user_id="+user.getId();
+        return "redirect:/data/upload?userId="+user.getId();
 
     }
 }
