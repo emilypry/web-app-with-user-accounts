@@ -226,9 +226,10 @@ textarea {
     margin-top: 3%;
     text-align: center;
 }
-.links a {
+.links form{
     padding-right: 30px;
     padding-left: 30px;
+    display: inline;
 }
 
 

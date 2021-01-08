@@ -192,9 +192,42 @@ public class DataController {
     }
 
     @GetMapping("graph")
-    public String showGraph(@RequestParam String dataObjectId, Model model){
+    public String showGraph(@RequestParam String dataObjectId, Integer userId, Integer datasetId, Model model){
         model.addAttribute("dataObjectId", dataObjectId);
+        model.addAttribute("datasetId", datasetId);
+        if(userId != null){
+            model.addAttribute("userId", userId);
+        }
         return "data/graph";
     }
+
+    /*@GetMapping("delete")
+    public String forDelete(@RequestParam Integer userId, Integer datasetId, Model model){
+        return "redirect"
+    }*/
+
+    @PostMapping("delete")
+    public String processDelete(@RequestParam(required=false) Integer userId, @RequestParam Integer datasetId, Model model){
+        if(userId == null){
+            datasetRepository.deleteById(datasetId);
+            return "redirect:/data/upload";
+        }
+
+        Optional<Dataset> data = datasetRepository.findById(datasetId);
+        if(data.isPresent()){
+            if(data.get().getOwner().getId() == userId){
+                datasetRepository.deleteById(datasetId);
+                return "redirect:/data/upload?userId="+userId;
+            }else{
+                model.addAttribute("deleteError", "Error deleting dataset");
+                model.addAttribute("userId", userId);
+                model.addAttribute("datasetId", datasetId);
+                return "data/graph";
+            }
+        }
+        return "redirect:/data/upload";
+    }
+
+    
 
 }

@@ -1,9 +1,12 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +76,21 @@ public class UserController{
         userRepository.save(user);
         return "redirect:/data/upload?userId="+user.getId();
 
+    }
+
+    @PostMapping("save")
+    public String processSave(@RequestParam Integer userId, @RequestParam Integer datasetId, Integer dataObjectId, Model model){
+        Optional<Dataset> data = datasetRepository.findById(datasetId);
+        if(data.isPresent()){
+            if(data.get().getOwner().getId() == userId){
+                return "redirect:/user/account?userId="+userId;
+            }else{
+                model.addAttribute("saveError", "Error saving dataset");
+                model.addAttribute("userId", userId);
+                model.addAttribute("datasetId", datasetId);
+                return "data/graph";
+            }
+        }
+        return "redirect:/data/upload";
     }
 }

@@ -14,8 +14,22 @@
     </div>
 
     <div class="links">
-        <a th:href="@{/user/save}" th:text="'Save dataset to my account'"></a>
-        <a th:href="@{/data/upload}" th:text="'Enter new dataset'"></a>
+        <form th:if="${userId}" method="post" th:action="@{/user/save(userId=${userId},datasetId=${datasetId})}">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="datasetId" th:value="${datasetId}" />
+            <input type="submit" value="Save dataset to my account" />
+
+            <div class="error" th:if="${saveError}" th:text="${saveError}"></div>            
+        </form>
+
+        <form method="post" th:action="@{/data/delete(datasetId=${datasetId})}">
+            <input th:if="${userId}" type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="datasetId" th:value="${datasetId}" />
+            <input type="submit" value="Enter new dataset" />
+
+            <div class="error" th:if="${deleteError}" th:text="${deleteError}"></div>
+        </form>
+
     </div>
 
 </body>
