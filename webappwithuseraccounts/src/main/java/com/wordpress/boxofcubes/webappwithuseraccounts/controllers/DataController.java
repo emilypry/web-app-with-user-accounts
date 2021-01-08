@@ -61,7 +61,6 @@ public class DataController {
                                 @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, 
                                 @RequestParam String xEntry, String yEntry, Model model,
-                                
                                 HttpServletRequest request){
 
         boolean errors = false;
@@ -171,6 +170,7 @@ public class DataController {
 
                 // Go to the page for ChartServlet
                 return "redirect:/data/graph?datasetId="+dataset.getId()+"&dataObjectId="+dataObjectId;
+                //return "redirect:/data/showgraph?dataObjectId="+dataObjectId;
 
             }else{
                 Optional<User> user = userRepository.findById(userId);
@@ -190,6 +190,12 @@ public class DataController {
             }
         }
         return "data/upload";
+    }
+
+    @GetMapping("graph")
+    public String showGraph(@RequestParam String dataObjectId, Model model){
+        model.addAttribute("dataObjectId", dataObjectId);
+        return "data/graph";
     }
 
 }

@@ -6,20 +6,9 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h2>Graph!</h2>
+    <h2>Graph of your dataset </h2>
 
-    <p>Ok</p>
-
-    <!--<form method="post">
-        <input type="hidden" name="myObjectId" th:text="${myObjectId}" />
-        <input type="submit" value="Go to servlet" />
-    </form>-->
-
-    <!--<img th:src="${graphOfDataset}" height=400 width=700>
-    
-
-    <img th:src="@{/images/mychart}" height=200 width=300>-->
-
+    <img th:src="@{graph/display(dataObjectId=${dataObjectId})}" width=700 height=400>
 
 </body>
 </html>
