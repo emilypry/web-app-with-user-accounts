@@ -10,11 +10,15 @@
 
     <p>Ok</p>
 
+    <form method="post">
+        <input type="hidden" name="myObjectId" th:text="${myObjectId}" />
+        <input type="submit" value="Go to servlet" />
+    </form>
 
-    <img th:src="${graphOfDataset}" height=400 width=700>
+    <!--<img th:src="${graphOfDataset}" height=400 width=700>
     
 
-    <img th:src="@{/images/mychart}" height=200 width=300>
+    <img th:src="@{/images/mychart}" height=200 width=300>-->
 
 
 </body>

@@ -60,7 +60,7 @@ public class GraphController {
     @Autowired
     DatasetRepository datasetRepository;
 
-    @GetMapping("data/graph")
+    /*@GetMapping("data/graph")
     public String showGraph(@RequestParam(required=false) Integer user_id, Integer dataset_id,
     Model model, HttpServletRequest request, HttpServletResponse response){
 
@@ -86,9 +86,9 @@ public class GraphController {
                 String url = request.getContextPath()+"$graph="+file;
 
 
-                /*ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes(); 
+                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes(); 
                 String file = ServletUtilities.saveChartAsJPEG(chart, 700, 400, null, attr.getRequest().getSession(true));
-                String url = attr.getRequest().getContextPath()+"?graph="+file;*/
+                String url = attr.getRequest().getContextPath()+"?graph="+file;
                 model.addAttribute("graphOfDataset", url);
                 
             }catch (IOException e) {
@@ -108,5 +108,5 @@ public class GraphController {
         XYSeriesCollection theDataset = new XYSeriesCollection();
         theDataset.addSeries(pairs);
         return theDataset;
-    }
+    }*/
 }

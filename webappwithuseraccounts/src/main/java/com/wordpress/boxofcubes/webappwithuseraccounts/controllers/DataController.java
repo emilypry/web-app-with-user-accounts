@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+import javax.persistence.metamodel.SetAttribute;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
@@ -54,7 +60,9 @@ public class DataController {
     public String processUpload(@RequestParam(required=false) Integer user_id,
                                 @RequestParam MultipartFile xFile, 
                                 @RequestParam MultipartFile yFile, 
-                                @RequestParam String xEntry, String yEntry, Model model){
+                                @RequestParam String xEntry, String yEntry, Model model,
+                                
+                                HttpServletRequest request){
 
         boolean errors = false;
 
@@ -154,18 +162,52 @@ public class DataController {
             if(user_id == null){
                 Dataset dataset = new Dataset(xVals, yVals); 
                 datasetRepository.save(dataset);
-                return "redirect:/data/graph?dataset_id="+dataset.getId();
+
+                //model.addAttribute("data", dataset);
+                String myObjectId = UUID.randomUUID().toString();
+                System.out.println("original uuid: "+myObjectId);
+                //model.addAttribute("myObjectId", myObjectId);
+                request.getSession().setAttribute(myObjectId, dataset);
+
+                return "redirect:/data/graph/view?myObjectId="+myObjectId;
+                //return "redirect:/data/graph?myObjectId="+myObjectId;
+                //return "redirect:/data/graph?dataset_id="+dataset.getId();
             }else{
                 Optional<User> user = userRepository.findById(user_id);
                 if(user.isPresent()){
                     Dataset dataset = new Dataset(xVals, yVals, user.get()); 
                     datasetRepository.save(dataset);
+
+                    //model.addAttribute("data", dataset);
+
                     return "redirect:/data/graph?user_id="+user_id+"&dataset_id="+dataset.getId();
                 }   
             }
         }
         return "data/upload";
     }
+
+    /*@GetMapping("graph")
+    public String showBlank(@RequestParam String myObjectId, Model model){
+        //Optional<Dataset> data = datasetRepository.findById(dataset_id);
+        //if(data.isPresent()){
+            //model.addAttribute("myObjectId", myObjectId);
+            System.out.println("myObjectId in get for graph:" +myObjectId);
+        //}
+        
+        //return "redirect:/data/graph/view";
+        //return "data/graph/view?myObjectId="+myObjectId;
+        return "data/graph";
+        
+    }
+    @PostMapping("graph")
+    public String goToServlet(@RequestParam String myObjectId, Model model){
+        //model.addAttribute("myObjectId", myObjectId);
+        System.out.println("added myObjectId to model in post: "+myObjectId);
+        // OR
+        //return "redirect:/data/graph/view";
+        return "redirect:/data/graph/view?myObjectId="+myObjectId;
+    }*/
 
 
 

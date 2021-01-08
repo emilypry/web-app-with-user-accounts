@@ -16,7 +16,7 @@ public class AppConfiguration {
 
     @Bean
     public ServletRegistrationBean chartServletBean() {
-        ServletRegistrationBean bean = new ServletRegistrationBean(new ChartServlet(), "/data/ShowChart/*");
+        ServletRegistrationBean bean = new ServletRegistrationBean(new ChartServlet(), "/data/graph/view/*");
         bean.setLoadOnStartup(1);
         return bean;
     }
