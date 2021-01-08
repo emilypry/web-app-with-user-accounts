@@ -17,7 +17,7 @@ import java.util.Scanner;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
-import com.wordpress.boxofcubes.webappwithuseraccounts.models.Graph;
+import com.wordpress.boxofcubes.webappwithuseraccounts.models.Chart;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
 import java.io.FileNotFoundException;

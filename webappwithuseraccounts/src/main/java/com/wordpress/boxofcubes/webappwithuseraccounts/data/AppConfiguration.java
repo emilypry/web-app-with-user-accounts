@@ -1,9 +1,9 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.data;
 
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.context.embedded.ServletRegistrationBean;
 
 @Configuration
 public class AppConfiguration {
@@ -15,12 +15,11 @@ public class AppConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean exampleServletBean() {
-    ServletRegistrationBean bean = new ServletRegistrationBean(
-      new CustomServlet(), "/exampleServlet/*");
-    bean.setLoadOnStartup(1);
-    return bean;
-}
+    public ServletRegistrationBean chartServletBean() {
+        ServletRegistrationBean bean = new ServletRegistrationBean(new ChartServlet(), "/data/ShowChart/*");
+        bean.setLoadOnStartup(1);
+        return bean;
+    }
 
 
 }

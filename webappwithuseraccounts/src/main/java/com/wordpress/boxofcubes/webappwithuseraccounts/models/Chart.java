@@ -19,14 +19,27 @@ import org.jfree.chart.ChartUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Graph extends JFrame {
+public class Chart extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    public Graph(String name){
-        super(name);
+    //public Graph(String name){
+    //    super(name);
+    //}
+    public Chart(){}
+
+    public static JFreeChart getChart(Dataset data){
+        // Create the dataset from the Data object
+        XYDataset theDataset = createDataset(data);
+        // Create chart
+        JFreeChart chart = ChartFactory.createScatterPlot("My Dataset", "X", "Y", theDataset);     
+        
+        return chart;
     }
 
-    public void getGraph(Dataset data){
+
+
+
+    /*public void getGraph(Dataset data){
         // Create the dataset from the Data object
         XYDataset theDataset = createDataset(data);
         // Create chart
@@ -51,9 +64,9 @@ public class Graph extends JFrame {
         }catch (IOException e) {
             System.out.println(e);
         }
-    }
+    }*/
 
-    private XYDataset createDataset(Dataset data){
+    private static XYDataset createDataset(Dataset data){
         XYSeries pairs = new XYSeries("Item");
         for(int i=0; i<data.getX().length; i++){
           pairs.add(data.getX()[i], data.getY()[i]);
