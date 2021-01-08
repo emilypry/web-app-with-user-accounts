@@ -7,8 +7,16 @@
 </head>
 <body>
     <h2>Graph of your dataset </h2>
+    <div th:replace="fragments :: menu"></div>
 
-    <img th:src="@{graph/display(dataObjectId=${dataObjectId})}" width=700 height=400>
+    <div class="graph">
+        <img th:src="@{graph/display(dataObjectId=${dataObjectId})}" width=700 height=400>
+    </div>
+
+    <div class="links">
+        <a th:href="@{/user/save}" th:text="'Save dataset to my account'"></a>
+        <a th:href="@{/data/upload}" th:text="'Enter new dataset'"></a>
+    </div>
 
 </body>
 </html>

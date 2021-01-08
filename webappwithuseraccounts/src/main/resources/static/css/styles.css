@@ -212,7 +212,24 @@ textarea {
     border: none;
     wrap: soft;
 }
-
+.graph {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+.links {
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    text-align: center;
+}
+.links a {
+    padding-right: 30px;
+    padding-left: 30px;
+}
 
 
 
