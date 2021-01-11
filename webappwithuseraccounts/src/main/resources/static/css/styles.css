@@ -1,7 +1,7 @@
 body {
     background-color:cadetblue;
 }
-h2 {
+h2, h3 {
     text-align: center;
     font-family: "Georgia";
     color:antiquewhite;
@@ -238,6 +238,13 @@ textarea {
     margin-right: auto;
     list-style-type: none;
 }
+.dataset-list div {
+    display: inline;
+}
+.dataset-list div form  {
+    display:inline;
+    width: 10%;
+}
 
 .submit-as-link {
     background: none;
@@ -251,7 +258,15 @@ textarea {
     cursor: pointer;
     font-family: "Georgia";
   }
-
+.data-link {
+    display: inline;
+    color:lavender;
+    text-decoration: none;
+    margin-left: 15px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-family: "Georgia"; 
+}
 
 
 

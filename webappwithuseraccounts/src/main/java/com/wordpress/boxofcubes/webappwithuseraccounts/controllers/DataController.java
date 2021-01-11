@@ -1,31 +1,19 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.controllers;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-
-
-import javax.persistence.metamodel.SetAttribute;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.UserRepository;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 import com.wordpress.boxofcubes.webappwithuseraccounts.models.User;
 
-import java.io.FileNotFoundException;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,13 +153,10 @@ public class DataController {
 
                 // Create a unique ID for this Dataset object
                 String dataObjectId = UUID.randomUUID().toString();
-                System.out.println("original uuid: "+dataObjectId);
                 request.getSession().setAttribute(dataObjectId, dataset);
 
                 // Go to the page for ChartServlet
                 return "redirect:/data/graph?datasetId="+dataset.getId()+"&dataObjectId="+dataObjectId;
-                //return "redirect:/data/showgraph?dataObjectId="+dataObjectId;
-
             }else{
                 Optional<User> user = userRepository.findById(userId);
                 if(user.isPresent()){
@@ -181,7 +166,6 @@ public class DataController {
 
                     // Create a unique ID for this Dataset object
                     String dataObjectId = UUID.randomUUID().toString();
-                    System.out.println("original uuid: "+dataObjectId);
                     request.getSession().setAttribute(dataObjectId, dataset);
 
                     // Go to the page for ChartServlet
@@ -218,7 +202,6 @@ public class DataController {
         if(data.isPresent()){
             if(data.get().getOwner().getId() == userId){
                 datasetRepository.deleteById(datasetId);
-
                 if(goTo.equals("account")){
                     return "redirect:/user/account?userId="+userId;
                 }else if(goTo.equals("logout")){

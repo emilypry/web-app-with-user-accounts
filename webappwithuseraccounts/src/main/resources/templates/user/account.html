@@ -8,14 +8,15 @@
 <body>
     <h2>My Account</h2>
     <div th:replace="fragments :: menu"></div>
+    <a class="data-link" th:href="@{/data/upload(userId=${userId})}">Upload Data</a>
 
-    <h2>My Datasets</h2>
-    <ul class="dataset-list" th:if="${datasets.size() > 0}">
-        <li th:each="dataset : ${datasets}">
+    <h3>My Datasets</h3>
+    <div class="dataset-list" th:if="${datasets.size() > 0}">
+        <div th:each="dataset : ${datasets}">
             <form method="post" th:action="@{/user/account/view-dataset(userId=${userId},datasetId=${dataset.getId()})}">
                 <input type="submit" th:value="${dataset.getId()}" />
             </form>
-        </li>
-    </ul>
+        </div>
+    </div>
 </body>
 </html>

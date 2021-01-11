@@ -4,8 +4,6 @@ import com.wordpress.boxofcubes.webappwithuseraccounts.models.Dataset;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +23,7 @@ public class ChartServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String dataObjectId = request.getParameter("dataObjectId");
-        System.out.println("Servlet got dataObjectId: "+dataObjectId);
-        System.out.println("Servlet got req: "+request.getSession().getAttribute(dataObjectId));
         Dataset data = (Dataset)request.getSession().getAttribute(dataObjectId);
-        System.out.println("IS DATA NULL IN SERVLET: "+data);
         response.setContentType("image/png");
         OutputStream outputStream = response.getOutputStream();
 

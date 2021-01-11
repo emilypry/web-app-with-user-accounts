@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("user")
@@ -113,7 +112,6 @@ public class UserController{
     public String processViewDataset(@RequestParam Integer userId, Integer datasetId, HttpServletRequest request, Model model){
         // Create a unique ID for this Dataset object
         String dataObjectId = UUID.randomUUID().toString();
-        System.out.println("original uuid: "+dataObjectId);
         Optional<Dataset> data = datasetRepository.findById(datasetId);
         if(data.isPresent()){
             request.getSession().setAttribute(dataObjectId, data.get());
