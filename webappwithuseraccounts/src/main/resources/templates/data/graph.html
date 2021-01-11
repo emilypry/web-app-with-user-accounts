@@ -41,7 +41,13 @@
             <div class="error" th:if="${saveError}" th:text="${saveError}"></div>            
         </form>
 
-        <form method="post" th:action="@{/data/delete(datasetId=${datasetId})}">
+
+
+        <form th:if="${alreadySaved}" method="get" th:action="@{/data/upload(userId=${userId})}">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="submit" value="Enter new dataset" />
+        </form>
+        <form th:unless="${alreadySaved}" method="post" th:action="@{/data/delete(datasetId=${datasetId})}">
             <input th:if="${userId}" type="hidden" name="userId" th:value="${userId}" />
             <input type="hidden" name="datasetId" th:value="${datasetId}" />
             <input type="submit" value="Enter new dataset" />

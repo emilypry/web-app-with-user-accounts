@@ -177,22 +177,24 @@ public class DataController {
     }
 
     @GetMapping("graph")
-    public String showGraph(@RequestParam String dataObjectId, Integer userId, Integer datasetId, Model model){
+    public String showGraph(@RequestParam String dataObjectId, Integer userId, Integer datasetId, @RequestParam(required=false) boolean alreadySaved, Model model){
         model.addAttribute("dataObjectId", dataObjectId);
         model.addAttribute("datasetId", datasetId);
         if(userId != null){
             model.addAttribute("userId", userId);
         }
+        if(alreadySaved == true){
+            model.addAttribute("alreadySaved", true);
+        }
         return "data/graph";
     }
 
     @PostMapping("delete")
-    public String processDelete(@RequestParam(required=false) Integer userId, String goTo,
-    @RequestParam Integer datasetId, Model model){
+    public String processDelete(@RequestParam(required=false) Integer userId, @RequestParam(required=false) String goTo, @RequestParam Integer datasetId, Model model){
         if(userId == null){
             datasetRepository.deleteById(datasetId);
 
-            if(goTo.equals("signup")){
+            if(goTo != null && goTo.equals("signup")){
                 return "redirect:/user/signup";
             }
             return "redirect:/data/upload";
@@ -202,9 +204,9 @@ public class DataController {
         if(data.isPresent()){
             if(data.get().getOwner().getId() == userId){
                 datasetRepository.deleteById(datasetId);
-                if(goTo.equals("account")){
+                if(goTo != null && goTo.equals("account")){
                     return "redirect:/user/account?userId="+userId;
-                }else if(goTo.equals("logout")){
+                }else if(goTo != null && goTo.equals("logout")){
                     return "redirect:/user/login";
                 }
                 return "redirect:/data/upload?userId="+userId;
