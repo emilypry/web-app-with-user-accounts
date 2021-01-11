@@ -115,7 +115,6 @@ public class UserController{
         Optional<Dataset> data = datasetRepository.findById(datasetId);
         if(data.isPresent()){
             request.getSession().setAttribute(dataObjectId, data.get());
-            //return "redirect:/data/graph?userId="+userId+"&datasetId="+datasetId+"&dataObjectId="+dataObjectId;
             return "redirect:/data/graph?userId="+userId+"&datasetId="+datasetId+"&dataObjectId="+dataObjectId+"&alreadySaved=true";
         }
         return "redirect:/user/account?userId="+userId;
