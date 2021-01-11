@@ -239,6 +239,19 @@ textarea {
     list-style-type: none;
 }
 
+.submit-as-link {
+    background: none;
+    border: none;
+    outline: none;
+    display: inline;
+    color:lavender;
+    text-decoration: none;
+    margin-left: 15px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-family: "Georgia";
+  }
+
 
 
 

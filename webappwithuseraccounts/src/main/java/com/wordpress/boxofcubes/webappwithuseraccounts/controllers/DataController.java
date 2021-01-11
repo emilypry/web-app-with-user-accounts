@@ -51,7 +51,8 @@ public class DataController {
     private UserRepository userRepository; 
 
     @GetMapping("upload")
-    public String showUpload(@RequestParam(required=false) Integer userId){
+    public String showUpload(@RequestParam(required=false) Integer userId, Model model){
+        model.addAttribute("userId", userId);
         return "data/upload";
     }
 
@@ -201,15 +202,15 @@ public class DataController {
         return "data/graph";
     }
 
-    /*@GetMapping("delete")
-    public String forDelete(@RequestParam Integer userId, Integer datasetId, Model model){
-        return "redirect"
-    }*/
-
     @PostMapping("delete")
-    public String processDelete(@RequestParam(required=false) Integer userId, @RequestParam Integer datasetId, Model model){
+    public String processDelete(@RequestParam(required=false) Integer userId, String goTo,
+    @RequestParam Integer datasetId, Model model){
         if(userId == null){
             datasetRepository.deleteById(datasetId);
+
+            if(goTo.equals("signup")){
+                return "redirect:/user/signup";
+            }
             return "redirect:/data/upload";
         }
 
@@ -217,6 +218,12 @@ public class DataController {
         if(data.isPresent()){
             if(data.get().getOwner().getId() == userId){
                 datasetRepository.deleteById(datasetId);
+
+                if(goTo.equals("account")){
+                    return "redirect:/user/account?userId="+userId;
+                }else if(goTo.equals("logout")){
+                    return "redirect:/user/login";
+                }
                 return "redirect:/data/upload?userId="+userId;
             }else{
                 model.addAttribute("deleteError", "Error deleting dataset");

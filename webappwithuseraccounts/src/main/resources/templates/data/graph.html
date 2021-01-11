@@ -7,7 +7,26 @@
 </head>
 <body>
     <h2>Graph of your dataset </h2>
-    <div th:replace="fragments :: menu"></div>
+
+    <div class="menu">
+        <form th:if="${userId}" method="post" th:action="@{/data/delete(datasetId=${datasetId})}" id="goToAccount">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="datasetId" th:value="${datasetId}" />
+            <input type="hidden" name="goTo" value="account" />
+            <input type="submit" form="goToAccount" class="submit-as-link" value="My Account"></a>
+        </form>
+        <form th:if="${userId}" method="post" th:action="@{/data/delete(datasetId=${datasetId})}" id="goToLogout">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="datasetId" th:value="${datasetId}" />
+            <input type="hidden" name="goTo" value="logout" />
+            <input type="submit" form="goToLogout" class="submit-as-link" value="Log Out"></a>
+        </form>
+        <form th:unless="${userId}" method="post" th:action="@{/data/delete(datasetId=${datasetId})}" id="goToSignup">
+            <input type="hidden" name="datasetId" th:value="${datasetId}" />
+            <input type="hidden" name="goTo" value="signup" />
+            <input type="submit" form="goToSignup" class="submit-as-link" value="Sign Up"></a>
+        </form>
+    </div>
 
     <div class="graph">
         <img th:src="@{graph/display(dataObjectId=${dataObjectId})}" width=700 height=400>
