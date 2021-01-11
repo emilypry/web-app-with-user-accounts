@@ -1,7 +1,10 @@
 package com.wordpress.boxofcubes.webappwithuseraccounts.controllers;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.wordpress.boxofcubes.webappwithuseraccounts.data.DatasetRepository;
@@ -93,4 +96,30 @@ public class UserController{
         }
         return "redirect:/data/upload";
     }
+
+    @GetMapping("account")
+    public String showAccount(@RequestParam Integer userId, Model model){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            List<Dataset> datasets = datasetRepository.findByOwner(user.get());
+            model.addAttribute("datasets", datasets);
+            model.addAttribute("userId", userId);
+            return "user/account";
+        }
+        return "redirect:/user/login";  
+    }
+
+    @PostMapping("account/view-dataset")
+    public String processViewDataset(@RequestParam Integer userId, Integer datasetId, HttpServletRequest request, Model model){
+        // Create a unique ID for this Dataset object
+        String dataObjectId = UUID.randomUUID().toString();
+        System.out.println("original uuid: "+dataObjectId);
+        Optional<Dataset> data = datasetRepository.findById(datasetId);
+        if(data.isPresent()){
+            request.getSession().setAttribute(dataObjectId, data.get());
+            return "redirect:/data/graph?userId="+userId+"&datasetId="+datasetId+"&dataObjectId="+dataObjectId;
+        }
+        return "redirect:/user/account?userId="+userId;
+    }
 }
+

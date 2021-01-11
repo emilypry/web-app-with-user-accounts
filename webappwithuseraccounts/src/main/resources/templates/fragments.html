@@ -8,8 +8,9 @@
 <body>
 
     <div th:fragment="menu" class="menu">
-        <a th:href="@{/user/account}">My Account</a>
-        <a th:href="@{/user/login}">Log Out</a>
+        <a th:if="${userId}" th:href="@{/user/account?=(userId=${userId})}">My Account</a>
+        <a th:if="${userId}" th:href="@{/user/login}">Log Out</a>
+        <a th:unless="${userId}" th:href="@{/user/signup}">Sign Up</a>
     </div>
 
 </body>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org/">
+<head>
+    <title>Data Storage and Display</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h2>My Account</h2>
+    <div th:replace="fragments :: menu"></div>
+
+    <h2>My Datasets</h2>
+    <ul class="dataset-list" th:if="${datasets.size() > 0}">
+        <li th:each="dataset : ${datasets}">
+            <form method="post" th:action="@{/user/account/view-dataset(userId=${userId},datasetId=${dataset.getId()})}">
+                <input type="submit" th:value="${dataset.getId()}" />
+            </form>
+        </li>
+    </ul>
+</body>
+</html>
